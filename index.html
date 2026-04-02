@@ -286,9 +286,9 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
       gap: 34px;
-      align-items: stretch;
+      align-items: center;
     }
 
     .hero-copy,
@@ -297,9 +297,8 @@
     }
 
     .hero-copy {
-      max-width: 860px;
-      margin: 0 auto;
-      text-align: center;
+      max-width: 620px;
+      text-align: left;
     }
 
     .hero-badge,
@@ -337,15 +336,19 @@
     }
 
     .hero-title {
-      font-size: clamp(3rem, 5.4vw, 5.3rem);
-      max-width: 13ch;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: clamp(3.05rem, 5vw, 5rem);
+      max-width: 10.4ch;
+      margin-right: 0;
+      line-height: 0.96;
     }
 
-    .hero-title span {
+    .hero-title-accent {
       color: var(--brand);
       display: inline-block;
+    }
+
+    .hero-title-line {
+      display: block;
     }
 
     .hero-lead,
@@ -359,8 +362,8 @@
     }
 
     .hero-lead {
-      max-width: 720px;
-      margin: 0 auto;
+      max-width: 600px;
+      margin: 0;
       font-size: 1.05rem;
     }
 
@@ -370,7 +373,7 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 26px;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     .hero-meta {
@@ -379,6 +382,48 @@
       gap: 14px;
       margin-top: 32px;
       text-align: left;
+    }
+
+    .hero-proof {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px 18px;
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .hero-proof strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .hero-proof-logos {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-proof-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 74px;
+      min-height: 42px;
+      padding: 8px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-proof-logo img {
+      max-height: 20px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.88;
     }
 
     .metric {
@@ -404,27 +449,46 @@
       line-height: 1.55;
     }
 
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(18, 185, 129, 0.14); }
+      50% { box-shadow: 0 0 0 10px rgba(18, 185, 129, 0); }
+    }
+
     .hero-visual {
       position: relative;
-      max-width: 980px;
-      margin: 0 auto;
       padding: 18px;
       border-radius: 36px;
       background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(247,250,255,0.94));
       border: 1px solid rgba(148, 163, 184, 0.16);
       box-shadow: var(--shadow);
       overflow: hidden;
+      min-height: 660px;
     }
 
+    .hero-visual::before,
     .hero-visual::after {
       content: "";
       position: absolute;
+      pointer-events: none;
+    }
+
+    .hero-visual::before {
+      inset: auto -80px -120px auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(8, 109, 255, 0.14), transparent 70%);
+    }
+
+    .hero-visual::after {
       inset: 18px;
       border-radius: 28px;
-      background:
-        linear-gradient(180deg, rgba(13, 27, 42, 0.18), rgba(13, 27, 42, 0.62)),
-        url("static/img/landing/hero-bg.png") center/cover;
-      opacity: 0.98;
+      background: linear-gradient(135deg, rgba(8, 109, 255, 0.03), rgba(78, 161, 255, 0.06));
     }
 
     .visual-top,
@@ -444,19 +508,19 @@
     }
 
     .visual-halo {
-      top: 24px;
-      right: 24px;
-      width: 160px;
-      height: 160px;
-      background: rgba(78, 161, 255, 0.16);
+      top: 18px;
+      right: -10px;
+      width: 180px;
+      height: 180px;
+      background: rgba(78, 161, 255, 0.14);
     }
 
     .visual-halo-2 {
-      left: -10px;
-      bottom: 10px;
-      width: 140px;
-      height: 140px;
-      background: rgba(8, 109, 255, 0.14);
+      left: -20px;
+      bottom: 30px;
+      width: 160px;
+      height: 160px;
+      background: rgba(8, 109, 255, 0.12);
     }
 
     .visual-top {
@@ -465,7 +529,7 @@
       justify-content: space-between;
       gap: 12px;
       margin-bottom: 18px;
-      color: #fff;
+      color: var(--text);
     }
 
     .visual-chip,
@@ -476,53 +540,218 @@
       min-height: 34px;
       padding: 0 12px;
       border-radius: 999px;
-      backdrop-filter: blur(16px);
       font-size: 0.82rem;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(148, 163, 184, 0.18);
     }
 
-    .visual-chip { background: rgba(255,255,255,0.12); }
+    .visual-chip {
+      background: rgba(255,255,255,0.9);
+      box-shadow: var(--shadow-soft);
+    }
+
     .signal {
-      background: rgba(18, 185, 129, 0.14);
+      background: rgba(18, 185, 129, 0.12);
+      color: #0f766e;
+      animation: pulseGlow 2.8s infinite;
     }
 
-    .dash-panel {
+    .visual-stack {
       position: relative;
       z-index: 1;
-      padding: 26px;
-      border-radius: 28px;
-      background: rgba(8, 16, 30, 0.58);
-      border: 1px solid rgba(255,255,255,0.14);
-      color: #fff;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 248px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .visual-media-card,
+    .board-card,
+    .snapshot-card,
+    .story-card,
+    .event-item,
+    .contact-link,
+    .showcase-panel {
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: var(--shadow-soft);
     }
 
     .dash-header,
     .bar-top,
     .event-item,
-    .contact-link {
+    .contact-link,
+    .story-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
     }
 
-    .dash-title {
+    .visual-media-card {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      min-height: 480px;
+    }
+
+    .visual-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .visual-media-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(13, 27, 42, 0.04), rgba(13, 27, 42, 0.72));
+    }
+
+    .visual-media-copy {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 20px;
+      z-index: 1;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(10, 20, 34, 0.68);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      backdrop-filter: blur(10px);
+    }
+
+    .visual-kicker {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .visual-media-copy strong,
+    .board-title {
+      display: block;
       font-family: "Sora", sans-serif;
-      font-size: 1.25rem;
-      font-weight: 700;
+      font-size: 1.35rem;
+      line-height: 1.28;
+      letter-spacing: -0.03em;
     }
 
-    .dash-grid {
+    .visual-side {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
       gap: 16px;
-      margin-top: 18px;
+      padding-top: 32px;
     }
 
-    .status-card,
-    .mini-card,
-    .event-item,
+    .board-card,
+    .snapshot-card,
+    .story-card {
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .board-card {
+      animation: floatY 5s ease-in-out infinite;
+    }
+
+    .board-title {
+      font-size: 1.05rem;
+      margin-bottom: 14px;
+    }
+
+    .board-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .board-metric {
+      padding: 14px;
+      border-radius: 18px;
+      background: var(--surface-soft);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .board-metric strong {
+      display: block;
+      font-family: "Sora", sans-serif;
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+      color: var(--brand);
+    }
+
+    .board-metric span,
+    .story-card p,
+    .showcase-copy p,
+    .showcase-list li,
+    .showcase-caption {
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
+    .snapshot-card {
+      background: linear-gradient(180deg, #ffffff, #f5f9ff);
+    }
+
+    .snapshot-card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-family: "Sora", sans-serif;
+      font-size: 1rem;
+    }
+
+    .snapshot-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .snapshot-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.91rem;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .snapshot-dot {
+      width: 10px;
+      height: 10px;
+      margin-top: 5px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    }
+
+    .story-card {
+      background: linear-gradient(180deg, #0f1f34, #122640);
+      color: #fff;
+    }
+
+    .story-card p {
+      color: rgba(255,255,255,0.74);
+      margin: 0;
+    }
+
+    .story-row strong {
+      font-family: "Sora", sans-serif;
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .story-badge {
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.74);
+    }
+
     .stat-card,
     .feature-card,
     .workflow-card,
@@ -532,53 +761,7 @@
       border: 1px solid rgba(255,255,255,0.12);
     }
 
-    .status-card,
-    .mini-card,
-    .event-item {
-      background: rgba(255,255,255,0.06);
-    }
-
-    .status-card {
-      padding: 18px;
-    }
-
-    .status-score b {
-      display: block;
-      font-family: "Sora", sans-serif;
-      font-size: 2.2rem;
-      line-height: 1;
-    }
-
-    .status-score span,
-    .mini-card span,
-    .event-copy span,
-    .event-time {
-      color: rgba(255,255,255,0.74);
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-
-    .bars {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .bar-track {
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.1);
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--brand), var(--brand-2));
-    }
-
     .mini-stack,
-    .events,
     .stats-grid,
     .feature-grid,
     .workflow-grid,
@@ -586,21 +769,6 @@
     .contact-grid {
       display: grid;
       gap: 16px;
-    }
-
-    .mini-card {
-      padding: 16px;
-    }
-
-    .mini-card strong {
-      display: block;
-      font-family: "Sora", sans-serif;
-      margin-bottom: 8px;
-      font-size: 1.4rem;
-    }
-
-    .events {
-      margin-top: 16px;
     }
 
     .event-item {
@@ -630,21 +798,48 @@
       font-size: 0.98rem;
     }
 
-    .ticker {
-      padding: 18px 20px;
-      overflow: hidden;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.9);
+    .event-copy span,
+    .event-time {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .trust-strip {
+      padding-top: 20px;
+    }
+
+    .logo-cloud,
+    .showcase-panel {
+      border-radius: 28px;
+      background: rgba(255,255,255,0.92);
       border: 1px solid rgba(148, 163, 184, 0.16);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.04);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.04);
     }
 
-    .ticker-track {
+    .logo-cloud {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+      padding: 18px 22px;
+    }
+
+    .logo-cloud-label {
+      max-width: 240px;
+      font-size: 0.93rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .logo-cloud-list {
       display: flex;
-      gap: 12px;
       flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
     }
 
+    .logo-chip,
     .ticker-tag,
     .cta-point {
       display: inline-flex;
@@ -657,6 +852,26 @@
       color: var(--text);
       background: rgba(8, 109, 255, 0.05);
       border: 1px solid rgba(8, 109, 255, 0.08);
+    }
+
+    .logo-chip {
+      min-height: 50px;
+      padding: 10px 16px;
+      background: #fff;
+      border-color: rgba(148, 163, 184, 0.14);
+    }
+
+    .logo-chip img {
+      max-height: 22px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.9;
+    }
+
+    .logo-chip span {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
     }
 
     .section-head {
@@ -762,6 +977,96 @@
       padding-left: 18px;
       color: var(--muted);
       line-height: 1.7;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .showcase-panel {
+      position: relative;
+      overflow: hidden;
+      padding: 18px;
+    }
+
+    .showcase-image {
+      position: relative;
+      min-height: 480px;
+      border-radius: 26px;
+      overflow: hidden;
+      background: #0f172a;
+    }
+
+    .showcase-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.95) contrast(1.02);
+    }
+
+    .showcase-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 15, 28, 0.05), rgba(8, 15, 28, 0.58));
+    }
+
+    .showcase-float {
+      position: absolute;
+      right: 24px;
+      bottom: 24px;
+      z-index: 1;
+      max-width: 280px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
+      animation: floatY 5.8s ease-in-out infinite;
+    }
+
+    .showcase-float strong {
+      display: block;
+      margin-bottom: 8px;
+      font-family: "Sora", sans-serif;
+      font-size: 1.02rem;
+    }
+
+    .showcase-copy {
+      padding: 12px 4px;
+    }
+
+    .showcase-list {
+      display: grid;
+      gap: 14px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .showcase-list li {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .showcase-list strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 1rem;
+      font-family: "Sora", sans-serif;
+    }
+
+    .showcase-caption {
+      margin-top: 18px;
+      padding-left: 14px;
+      border-left: 3px solid rgba(8, 109, 255, 0.16);
     }
 
     .deployment-grid {
@@ -880,9 +1185,10 @@
 
     @media (max-width: 1080px) {
       .hero-grid,
+      .visual-stack,
+      .showcase-grid,
       .deployment-grid,
       .cta-panel,
-      .dash-grid,
       .feature-grid,
       .workflow-grid,
       .faq-grid {
@@ -895,6 +1201,30 @@
 
       .hero-meta {
         grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        max-width: none;
+      }
+
+      .hero-title {
+        max-width: 12ch;
+      }
+
+      .hero-visual {
+        min-height: auto;
+      }
+
+      .visual-side {
+        padding-top: 0;
+      }
+
+      .logo-cloud {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-cloud-label {
+        max-width: none;
       }
 
       .nav-inner {
@@ -934,8 +1264,11 @@
     }
 
     @media (max-width: 720px) {
+      section { padding: 36px 0; }
+
       .nav-inner,
       .hero-visual,
+      .showcase-panel,
       .cta-panel,
       .contact-card,
       .deployment-card,
@@ -944,7 +1277,10 @@
       .nav-actions .btn,
       .nav-actions .pill { display: none; }
 
-      .hero-title { font-size: 2.7rem; }
+      .hero-title {
+        font-size: 2.6rem;
+        max-width: none;
+      }
 
       .section-title,
       .cta-title { font-size: 1.9rem; }
@@ -964,9 +1300,61 @@
         margin-right: 0;
       }
 
+      .hero-badge,
+      .eyebrow {
+        font-size: 0.76rem;
+      }
+
       .hero-actions,
       .cta-points {
         justify-content: flex-start;
+      }
+
+      .hero-actions .btn,
+      .nav-mobile .btn {
+        width: 100%;
+      }
+
+      .hero-proof {
+        gap: 12px;
+      }
+
+      .hero-proof-logos {
+        gap: 8px;
+      }
+
+      .hero-proof-logo {
+        min-width: 66px;
+        min-height: 38px;
+      }
+
+      .visual-top,
+      .story-row,
+      .logo-cloud-list {
+        align-items: flex-start;
+      }
+
+      .visual-top,
+      .logo-cloud,
+      .story-row {
+        flex-direction: column;
+      }
+
+      .visual-media-card,
+      .showcase-image {
+        min-height: 300px;
+      }
+
+      .showcase-float {
+        position: static;
+        max-width: none;
+        margin-top: 14px;
+        animation: none;
+      }
+
+      .logo-chip {
+        min-width: calc(50% - 6px);
+        justify-content: center;
       }
 
       .section-head {
@@ -1035,7 +1423,12 @@
             Nền tảng quản lý sạc xe điện và an ninh bãi xe thông minh
           </span>
 
-          <h1 class="hero-title">Quản lý <span>sạc xe máy điện</span>, xe ra vào và cảnh báo an toàn trên một màn hình duy nhất</h1>
+            <h1 class="hero-title">
+              <span class="hero-title-line">Quản lý</span>
+              <span class="hero-title-line"><span class="hero-title-accent">sạc xe máy điện</span>, xe ra vào</span>
+              <span class="hero-title-line">và cảnh báo an toàn</span>
+              <span class="hero-title-line">trên một màn hình duy nhất</span>
+            </h1>
           <p class="hero-lead">
             Dành cho ban quản lý tòa nhà, đơn vị vận hành bãi xe và chủ đầu tư cần một hệ thống dễ theo dõi,
             cảnh báo kịp thời và đủ rõ ràng để đội bảo vệ, kỹ thuật và quản lý cùng sử dụng mỗi ngày.
@@ -1045,6 +1438,15 @@
             <a class="btn btn-primary" id="heroAppLink" href="#contact">Vào hệ thống</a>
             <a class="btn btn-secondary" href="#deployment">Xem cách triển khai</a>
             <a class="btn btn-ghost" id="heroPhoneLink" href="mailto:contact@sacxemaydien.vn">Yêu cầu demo</a>
+          </div>
+
+          <div class="hero-proof">
+            <strong>Phù hợp với các mô hình xe điện phổ biến tại Việt Nam</strong>
+            <div class="hero-proof-logos" aria-label="Các dòng xe điện phổ biến">
+              <span class="hero-proof-logo"><img src="static/img/brands/vinfast.png" alt="VinFast"></span>
+              <span class="hero-proof-logo"><img src="static/img/brands/datbike.png" alt="Dat Bike"></span>
+              <span class="hero-proof-logo"><img src="static/img/brands/yadea.png" alt="YADEA"></span>
+            </div>
           </div>
 
           <div class="hero-meta">
@@ -1068,102 +1470,103 @@
           <div class="visual-halo-2"></div>
 
           <div class="visual-top">
-            <span class="visual-chip">Ops Console</span>
-            <span class="signal">Realtime online</span>
+            <span class="visual-chip">Vận hành thời gian thực</span>
+            <span class="signal">Camera và cảnh báo đang online</span>
           </div>
 
           <div class="visual-stack">
-            <div class="dash-panel">
-              <div class="dash-header">
-                <div>
-                  <div class="dash-title">Operational Health</div>
-                </div>
-                <span class="visual-chip">11 camera • 26 socket</span>
-              </div>
-
-              <div class="dash-grid">
-                <div class="status-card">
-                  <div class="status-score">
-                    <b>98.6</b>
-                    <span>Health score</span>
-                  </div>
-
-                  <div class="bars">
-                    <div>
-                      <div class="bar-top"><span>Ổ cắm sẵn sàng</span><span>92%</span></div>
-                      <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
-                    </div>
-                    <div>
-                      <div class="bar-top"><span>Camera ổn định</span><span>96%</span></div>
-                      <div class="bar-track"><div class="bar-fill" style="width:96%"></div></div>
-                    </div>
-                    <div>
-                      <div class="bar-top"><span>Xử lý alert đúng SLA</span><span>89%</span></div>
-                      <div class="bar-track"><div class="bar-fill" style="width:89%"></div></div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mini-stack">
-                  <div class="mini-card">
-                    <strong>124</strong>
-                    <span>Phiên sạc hoàn tất trong ngày, theo dõi được theo khu vực và tenant.</span>
-                  </div>
-                  <div class="mini-card">
-                    <strong>03</strong>
-                    <span>Sự kiện ưu tiên cao đang mở: khói, quá tải dòng, vi phạm đỗ xe.</span>
-                  </div>
-                  <div class="mini-card">
-                    <strong>08</strong>
-                    <span>Luồng camera đang được phân phối tới đội trực và bảo vệ.</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="events">
-                <div class="event-item">
-                  <span class="event-dot dot-ok"></span>
-                  <div class="event-copy">
-                    <strong>Camera khu B ổn định</strong>
-                    <span>Luồng trực tiếp và OCR biển số đang hoạt động bình thường.</span>
-                  </div>
-                  <span class="event-time">1 phút</span>
-                </div>
-
-                <div class="event-item">
-                  <span class="event-dot dot-warn"></span>
-                  <div class="event-copy">
-                    <strong>Socket S3 vượt ngưỡng dòng</strong>
-                    <span>Tự động cắt tải và ghi log để bảo trì kiểm tra.</span>
-                  </div>
-                  <span class="event-time">4 phút</span>
-                </div>
-
-                <div class="event-item">
-                  <span class="event-dot dot-danger"></span>
-                  <div class="event-copy">
-                    <strong>Hầm B2 phát hiện khói</strong>
-                    <span>Đã sinh cảnh báo, lưu ảnh và đẩy thông báo cho đội vận hành.</span>
-                  </div>
-                  <span class="event-time">7 phút</span>
-                </div>
+            <div class="visual-media-card">
+              <img class="visual-photo" src="static/img/camera_mock.jpg" alt="Hình ảnh bãi xe được giám sát bằng camera">
+              <div class="visual-media-copy">
+                <span class="visual-kicker">Tổng quan hiện trường</span>
+                <strong>Theo dõi khu sạc, làn xe và camera bãi xe trong cùng một không gian vận hành</strong>
               </div>
             </div>
+
+            <div class="visual-side">
+              <div class="board-card">
+                <div class="board-title">Tổng quan ca trực hôm nay</div>
+                <div class="board-grid">
+                  <div class="board-metric">
+                    <strong>124</strong>
+                    <span>Phiên sạc hoàn tất trong ngày</span>
+                  </div>
+                  <div class="board-metric">
+                    <strong>26</strong>
+                    <span>Socket đang được giám sát</span>
+                  </div>
+                  <div class="board-metric">
+                    <strong>08</strong>
+                    <span>Luồng camera đang được phân phối</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="snapshot-card">
+                <strong>Điều khách hàng nhìn thấy ngay</strong>
+                <div class="snapshot-list">
+                  <div class="snapshot-row"><span class="snapshot-dot"></span><span>Xe vào bãi được nhận diện và đối chiếu nhanh.</span></div>
+                  <div class="snapshot-row"><span class="snapshot-dot"></span><span>Khu vực sạc có cảnh báo quá tải và bất thường.</span></div>
+                  <div class="snapshot-row"><span class="snapshot-dot"></span><span>Đội trực biết ngay khu vực nào cần ưu tiên xử lý.</span></div>
+                </div>
+              </div>
+
+              <div class="story-card">
+                <div class="story-row">
+                  <strong>03</strong>
+                  <span class="story-badge">Ưu tiên cao</span>
+                </div>
+                <p>Sự kiện khói, quá tải dòng hoặc vi phạm khu vực sạc được gom lại thành các cảnh báo rõ ràng để ca trực phản ứng nhanh hơn.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mini-stack">
+            <div class="event-item">
+              <span class="event-dot dot-ok"></span>
+              <div class="event-copy">
+                <strong>Camera khu B ổn định</strong>
+                <span>Luồng trực tiếp và OCR biển số đang hoạt động bình thường.</span>
+              </div>
+              <span class="event-time">1 phút</span>
+            </div>
+
+            <div class="event-item">
+              <span class="event-dot dot-warn"></span>
+              <div class="event-copy">
+                <strong>Socket S3 vượt ngưỡng dòng</strong>
+                <span>Tự động cắt tải và ghi log để bảo trì kiểm tra.</span>
+              </div>
+              <span class="event-time">4 phút</span>
+            </div>
+
+            <div class="event-item">
+              <span class="event-dot dot-danger"></span>
+              <div class="event-copy">
+                <strong>Hầm B2 phát hiện khói</strong>
+                <span>Đã sinh cảnh báo, lưu ảnh và đẩy thông báo cho đội vận hành.</span>
+              </div>
+              <span class="event-time">7 phút</span>
+            </div>
+          </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="shell ticker">
-        <div class="ticker-track">
+    <section class="trust-strip">
+      <div class="shell logo-cloud">
+        <div class="logo-cloud-label">
+          Hệ thống được thiết kế để phù hợp với bối cảnh xe điện phổ biến, khu sạc trong chung cư và mô hình bãi xe cần vận hành rõ ràng.
+        </div>
+        <div class="logo-cloud-list">
+          <span class="logo-chip"><img src="static/img/brands/vinfast.png" alt="VinFast"></span>
+          <span class="logo-chip"><img src="static/img/brands/datbike.png" alt="Dat Bike"></span>
+          <span class="logo-chip"><img src="static/img/brands/yadea.png" alt="YADEA"></span>
           <span class="ticker-tag">Đọc biển số tự động</span>
           <span class="ticker-tag">Kiểm tra gói sạc tháng</span>
           <span class="ticker-tag">Cảnh báo cháy và khói</span>
-          <span class="ticker-tag">Kiểm soát khu vực sạc</span>
-          <span class="ticker-tag">Nhận diện người lấy xe</span>
           <span class="ticker-tag">Theo dõi camera an ninh</span>
-          <span class="ticker-tag">Lịch sử xe ra vào</span>
         </div>
       </div>
     </section>
@@ -1196,6 +1599,46 @@
             <strong>Dễ mở rộng</strong>
             <span>Có thể bắt đầu từ một khu vực thí điểm trước, sau đó mở rộng ra toàn bộ bãi xe hoặc nhiều tòa nhà.</span>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell showcase-grid">
+        <div class="showcase-panel">
+          <div class="showcase-image">
+            <img src="static/img/camera_mock.jpg" alt="Minh họa bãi xe và khu vực cần giám sát an toàn">
+          </div>
+          <div class="showcase-float">
+            <strong>Điểm cộng khi demo cho khách</strong>
+            <div class="showcase-caption">Khách nhìn vào hình ảnh bãi xe thật sẽ dễ liên hệ ngay với tình huống của chung cư, tầng hầm hoặc khu sạc mình đang vận hành.</div>
+          </div>
+        </div>
+
+        <div class="showcase-copy">
+          <span class="eyebrow">Minh họa theo bối cảnh thật</span>
+          <h2 class="section-title">Không chỉ đẹp hơn, trang này cần giúp khách hiểu hệ thống giải quyết bài toán gì</h2>
+          <p>
+            Landing tốt không phải là nhồi nhiều chữ. Nó phải cho người xem thấy ngay: đây là giải pháp cho bãi xe có khu sạc,
+            có camera, có đội bảo vệ và có nhu cầu cảnh báo sớm để giảm rủi ro vận hành.
+          </p>
+
+          <ul class="showcase-list">
+            <li>
+              <strong>Nhìn vào là hiểu luồng sử dụng</strong>
+              Từ xe đi vào, sử dụng khu sạc đến lúc phát sinh cảnh báo đều được kể lại thành một hành trình rõ ràng.
+            </li>
+            <li>
+              <strong>Thể hiện được độ tin cậy của giải pháp</strong>
+              Ảnh thật, bảng tổng quan và các khối thông tin ngắn giúp giao diện bớt cảm giác thử nghiệm và giống một sản phẩm đã sẵn sàng triển khai.
+            </li>
+            <li>
+              <strong>Thân thiện hơn trên điện thoại</strong>
+              Các block chính được chia lại để mobile vẫn đọc nhanh, CTA vẫn rõ và phần minh họa vẫn còn giá trị chứ không vỡ bố cục.
+            </li>
+          </ul>
+
+          <div class="showcase-caption">Mục tiêu là khi khách mở trang trên điện thoại hoặc laptop, họ đều thấy đây là một giải pháp vận hành thực tế chứ không phải bản giới thiệu tạm.</div>
         </div>
       </div>
     </section>
