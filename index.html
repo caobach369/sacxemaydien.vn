@@ -1006,21 +1006,29 @@
     .showcase-panel {
       position: relative;
       overflow: hidden;
+      display: grid;
       padding: 18px;
+    }
+
+    .showcase-panel > * {
+      grid-area: 1 / 1;
     }
 
     .showcase-image {
       position: relative;
-      min-height: 480px;
+      min-height: 560px;
       border-radius: 26px;
       overflow: hidden;
       background: #0f172a;
     }
 
     .showcase-image img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       filter: saturate(0.95) contrast(1.02);
     }
 
@@ -1032,11 +1040,12 @@
     }
 
     .showcase-float {
-      position: absolute;
-      right: 24px;
-      bottom: 24px;
+      position: relative;
+      align-self: end;
+      justify-self: end;
       z-index: 1;
       max-width: 280px;
+      margin: 0 24px 24px;
       padding: 18px;
       border-radius: 22px;
       background: rgba(255,255,255,0.92);
@@ -1054,6 +1063,16 @@
 
     .showcase-copy {
       padding: 12px 4px;
+    }
+
+    .showcase-copy .section-title {
+      max-width: 11ch;
+      font-size: clamp(2rem, 3.1vw, 3rem);
+      line-height: 0.98;
+    }
+
+    .showcase-copy p {
+      max-width: 60ch;
     }
 
     .showcase-list {
@@ -1842,6 +1861,10 @@
         min-height: 300px;
       }
 
+      .showcase-panel {
+        display: block;
+      }
+
       .case-story,
       .case-study-quote,
       .pricing-card,
@@ -1858,9 +1881,9 @@
       }
 
       .showcase-float {
-        position: static;
+        position: relative;
         max-width: none;
-        margin-top: 14px;
+        margin: -42px 12px 0;
         animation: none;
       }
 
@@ -2150,28 +2173,28 @@
 
         <div class="showcase-copy">
           <span class="eyebrow">Minh họa theo bối cảnh thật</span>
-          <h2 class="section-title">Khách không cần đọc hết mới hiểu, họ cần nhìn vài giây là thấy đúng bài toán của mình</h2>
+          <h2 class="section-title">Nhìn vài giây là hiểu đây đúng là bài toán khu sạc của mình</h2>
           <p>
-            Một landing thuyết phục phải mô tả được bối cảnh thật: bãi xe có camera, có khu sạc, có nhiều ca trực,
-            có sự cố phát sinh và cần một hệ thống để mọi người xử lý nhanh hơn thay vì chỉ phản ứng khi có vấn đề lớn.
+            Khách không cần đọc hết để bị thuyết phục. Họ chỉ cần thấy rõ bối cảnh vận hành quen thuộc của mình:
+            bãi xe có camera, có khu sạc, có ca trực và có rủi ro cần được phát hiện sớm hơn.
           </p>
 
           <ul class="showcase-list">
             <li>
               <strong>Nhìn vào là hiểu luồng sử dụng</strong>
-              Từ xe đi vào, sử dụng khu sạc đến lúc phát sinh cảnh báo đều được kể lại thành một hành trình rõ ràng.
+              Từ xe đi vào đến lúc phát sinh cảnh báo, mọi thứ được kể thành một hành trình dễ hiểu.
             </li>
             <li>
               <strong>Thể hiện được độ tin cậy của giải pháp</strong>
-              Ảnh thật, bảng tổng quan và các khối thông tin ngắn giúp giao diện bớt cảm giác thử nghiệm và giống một sản phẩm đã sẵn sàng triển khai.
+              Ảnh thật và bảng tổng quan khiến giao diện bớt cảm giác demo, tăng độ tin tưởng khi trình bày.
             </li>
             <li>
               <strong>Thân thiện hơn trên điện thoại</strong>
-              Các block chính được chia lại để mobile vẫn đọc nhanh, CTA vẫn rõ và phần minh họa vẫn còn giá trị chứ không vỡ bố cục.
+              Các block được chia lại để mobile vẫn đọc nhanh, CTA vẫn rõ và minh họa không bị vỡ bố cục.
             </li>
           </ul>
 
-          <div class="showcase-caption">Mục tiêu là khi khách mở trang trên điện thoại hoặc laptop, họ đều thấy đây là một giải pháp vận hành thực tế chứ không phải bản giới thiệu tạm.</div>
+          <div class="showcase-caption">Mục tiêu là khi mở trên điện thoại hay laptop, khách đều cảm thấy đây là một giải pháp vận hành đã sẵn sàng để demo và chạy thử.</div>
         </div>
       </div>
     </section>
