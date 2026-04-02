@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAC-EV Control | Nền tảng quản lý sạc xe máy điện</title>
+  <meta name="description" content="Trang giới thiệu tĩnh cho hệ thống quản lý sạc xe máy điện, camera AI và cảnh báo an toàn. Dùng được trực tiếp với GitHub Pages.">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SAC-EV Control | Nền tảng quản lý sạc xe máy điện">
+  <meta property="og:description" content="Giải pháp quản lý trạm sạc xe máy điện, camera AI và cảnh báo an toàn cho bãi xe vận hành thực tế.">
+  <meta property="og:url" content="https://sacxemaydien.vn/">
+  <meta property="og:site_name" content="SAC-EV Control">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SAC-EV Control | Nền tảng quản lý sạc xe máy điện">
+  <meta name="twitter:description" content="Giải pháp quản lý trạm sạc xe máy điện, camera AI và cảnh báo an toàn cho bãi xe vận hành thực tế.">
+  <link rel="canonical" href="https://sacxemaydien.vn/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --bg-deep: #091425;
+      --surface: rgba(255, 255, 255, 0.82);
+      --surface-strong: rgba(255, 255, 255, 0.94);
+      --line: rgba(15, 23, 42, 0.08);
+      --line-strong: rgba(14, 116, 144, 0.18);
+      --text: #122033;
+      --muted: #607089;
+      --brand: #0674ff;
+      --brand-2: #12b0ff;
+      --brand-soft: rgba(6, 116, 255, 0.08);
+      --ok: #12b981;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 24px 80px rgba(15, 23, 42, 0.12);
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --wrap: min(1180px, calc(100% - 32px));
+      --transition: 0.28s cubic-bezier(.22,1,.36,1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Be Vietnam Pro", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(6, 116, 255, 0.14), transparent 24%),
+        radial-gradient(circle at top right, rgba(18, 176, 255, 0.16), transparent 22%),
+        linear-gradient(180deg, #f8fbff 0%, #eef4fa 38%, #f6f9fd 100%);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; }
+
+    .page-noise,
+    .page-blur {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-noise {
+      opacity: 0.05;
+      background-image: radial-gradient(#7aa2d7 0.7px, transparent 0.7px);
+      background-size: 18px 18px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.9), transparent 86%);
+    }
+
+    .page-blur::before,
+    .page-blur::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(90px);
+      opacity: 0.36;
+    }
+
+    .page-blur::before {
+      top: 60px;
+      right: -100px;
+      width: 320px;
+      height: 320px;
+      background: rgba(6, 116, 255, 0.22);
+    }
+
+    .page-blur::after {
+      left: -140px;
+      bottom: 120px;
+      width: 360px;
+      height: 360px;
+      background: rgba(18, 176, 255, 0.18);
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      width: var(--wrap);
+      margin: 0 auto;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 14px;
+      z-index: 20;
+      width: min(1240px, calc(100% - 20px));
+      margin: 14px auto 0;
+      padding: 0 14px;
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      padding: 12px 16px;
+      border: 1px solid rgba(255,255,255,0.65);
+      border-color: rgba(148, 163, 184, 0.18);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(18px) saturate(160%);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, rgba(6, 116, 255, 0.18), rgba(18, 176, 255, 0.18));
+      border: 1px solid rgba(6, 116, 255, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    }
+
+    .brand-mark::before {
+      width: 22px;
+      height: 22px;
+      transform: rotate(45deg);
+      opacity: 0.9;
+    }
+
+    .brand-mark::after {
+      width: 10px;
+      height: 10px;
+      right: 8px;
+      top: 8px;
+      box-shadow: 0 0 0 5px rgba(255,255,255,0.3);
+    }
+
+    .brand-name {
+      display: block;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-sub {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    .nav-links,
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-link {
+      padding: 11px 14px;
+      border-radius: 14px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .nav-link:hover,
+    .nav-link.is-active {
+      color: var(--brand);
+      background: rgba(6, 116, 255, 0.08);
+    }
+
+    .btn,
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
+    }
+
+    .btn:hover,
+    .pill:hover { transform: translateY(-1px); }
+
+    .pill {
+      color: var(--muted);
+      background: rgba(255,255,255,0.78);
+      border-color: rgba(148, 163, 184, 0.24);
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand), #2779ff 48%, var(--brand-2));
+      box-shadow: 0 14px 30px rgba(6, 116, 255, 0.24);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,0.76);
+      border-color: rgba(148, 163, 184, 0.22);
+    }
+
+    .btn-ghost {
+      color: var(--brand);
+      background: rgba(6, 116, 255, 0.06);
+      border-color: rgba(6, 116, 255, 0.12);
+    }
+
+    .mobile-toggle,
+    .nav-mobile { display: none; }
+
+    main { position: relative; z-index: 1; }
+
+    section { padding: 34px 0; }
+
+    .hero {
+      padding-top: 44px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-copy,
+    .hero-visual {
+      min-width: 0;
+    }
+
+    .hero-badge,
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(6, 116, 255, 0.1);
+      color: var(--brand);
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--ok);
+      box-shadow: 0 0 0 8px rgba(18, 185, 129, 0.1);
+    }
+
+    .hero-title,
+    .section-title,
+    .cta-title {
+      margin: 18px 0 14px;
+      font-family: "Sora", sans-serif;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+    }
+
+    .hero-title {
+      font-size: clamp(2.7rem, 5vw, 5rem);
+      max-width: 12ch;
+    }
+
+    .hero-title span {
+      color: var(--brand);
+      display: inline-block;
+    }
+
+    .hero-lead,
+    .section-lead,
+    .cta-copy p,
+    .contact-card p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .hero-actions,
+    .cta-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .metric-value {
+      display: block;
+      font-family: "Sora", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--brand);
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .hero-visual {
+      position: relative;
+      padding: 18px;
+      border-radius: 32px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.66)),
+        linear-gradient(135deg, rgba(6, 116, 255, 0.16), rgba(18, 176, 255, 0.1));
+      border: 1px solid rgba(255,255,255,0.64);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(9, 20, 37, 0.28), rgba(9, 20, 37, 0.74)),
+        url("static/img/landing/hero-bg.png") center/cover;
+      opacity: 0.96;
+    }
+
+    .visual-top,
+    .visual-stack,
+    .visual-halo,
+    .visual-halo-2 {
+      position: relative;
+      z-index: 1;
+    }
+
+    .visual-halo,
+    .visual-halo-2 {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .visual-halo {
+      top: 30px;
+      right: 24px;
+      width: 180px;
+      height: 180px;
+      background: rgba(18, 176, 255, 0.22);
+    }
+
+    .visual-halo-2 {
+      left: -20px;
+      bottom: 12px;
+      width: 160px;
+      height: 160px;
+      background: rgba(6, 116, 255, 0.18);
+    }
+
+    .visual-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      color: #fff;
+    }
+
+    .visual-chip,
+    .signal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(16px);
+      font-size: 0.82rem;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .visual-chip { background: rgba(255,255,255,0.12); }
+    .signal {
+      background: rgba(18, 185, 129, 0.14);
+    }
+
+    .dash-panel {
+      position: relative;
+      z-index: 1;
+      padding: 22px;
+      border-radius: 26px;
+      background: rgba(8, 16, 30, 0.62);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+    }
+
+    .dash-header,
+    .bar-top,
+    .event-item,
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .dash-title {
+      font-family: "Sora", sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .status-card,
+    .mini-card,
+    .event-item,
+    .stat-card,
+    .feature-card,
+    .workflow-card,
+    .faq-card,
+    .contact-card {
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .status-card,
+    .mini-card,
+    .event-item {
+      background: rgba(255,255,255,0.06);
+    }
+
+    .status-card {
+      padding: 18px;
+    }
+
+    .status-score b {
+      display: block;
+      font-family: "Sora", sans-serif;
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .status-score span,
+    .mini-card span,
+    .event-copy span,
+    .event-time {
+      color: rgba(255,255,255,0.74);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .bars {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .bar-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    }
+
+    .mini-stack,
+    .events,
+    .stats-grid,
+    .feature-grid,
+    .workflow-grid,
+    .faq-grid,
+    .contact-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .mini-card {
+      padding: 16px;
+    }
+
+    .mini-card strong {
+      display: block;
+      font-family: "Sora", sans-serif;
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+    }
+
+    .events {
+      margin-top: 16px;
+    }
+
+    .event-item {
+      padding: 14px 16px;
+      align-items: flex-start;
+    }
+
+    .event-dot {
+      width: 10px;
+      height: 10px;
+      margin-top: 6px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+    }
+
+    .dot-ok { background: var(--ok); }
+    .dot-warn { background: var(--warn); }
+    .dot-danger { background: var(--danger); }
+
+    .event-copy {
+      flex: 1;
+    }
+
+    .event-copy strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.98rem;
+    }
+
+    .ticker {
+      padding: 16px 18px;
+      overflow: hidden;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.05);
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .ticker-tag,
+    .cta-point {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      background: rgba(6, 116, 255, 0.06);
+      border: 1px solid rgba(6, 116, 255, 0.1);
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .section-title,
+    .cta-title {
+      font-size: clamp(2rem, 3.6vw, 3.4rem);
+    }
+
+    .stats-grid,
+    .feature-grid,
+    .workflow-grid,
+    .faq-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stat-card,
+    .feature-card,
+    .workflow-card,
+    .faq-card {
+      padding: 22px;
+      background: var(--surface);
+      border-color: var(--line);
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);
+    }
+
+    .stat-card strong,
+    .feature-card h3,
+    .workflow-card h3,
+    .faq-card h3,
+    .contact-card h3 {
+      display: block;
+      margin: 0 0 10px;
+      font-size: 1.12rem;
+      font-family: "Sora", sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-card span,
+    .feature-card p,
+    .workflow-card p,
+    .faq-card p,
+    .contact-link span:last-child {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+
+    .feature-icon,
+    .workflow-index {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(6, 116, 255, 0.12), rgba(18, 176, 255, 0.14));
+      color: var(--brand);
+      font-weight: 800;
+      font-family: "Sora", sans-serif;
+    }
+
+    .feature-list,
+    .workflow-list,
+    .model-list,
+    .steps {
+      margin: 16px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .deployment-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 18px;
+    }
+
+    .deployment-card,
+    .steps-card {
+      padding: 24px;
+      border-radius: 24px;
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+    }
+
+    .model-list strong,
+    .steps strong {
+      color: var(--text);
+    }
+
+    .cta-wrap {
+      padding-bottom: 68px;
+    }
+
+    .cta-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.86fr);
+      gap: 18px;
+      padding: 24px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(6, 116, 255, 0.08), rgba(18, 176, 255, 0.1));
+      border: 1px solid rgba(6, 116, 255, 0.12);
+      box-shadow: 0 18px 46px rgba(15, 23, 42, 0.08);
+    }
+
+    .contact-card {
+      padding: 22px;
+      background: rgba(255,255,255,0.92);
+      border-color: rgba(148, 163, 184, 0.18);
+    }
+
+    .contact-grid {
+      margin-top: 18px;
+    }
+
+    .contact-link {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(6, 116, 255, 0.04);
+      border: 1px solid rgba(6, 116, 255, 0.08);
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    .contact-link:hover {
+      transform: translateY(-2px);
+      background: rgba(6, 116, 255, 0.06);
+      border-color: rgba(6, 116, 255, 0.14);
+    }
+
+    .contact-link strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .contact-arrow {
+      color: var(--brand);
+      font-size: 1.2rem;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+
+    .site-footer {
+      padding: 0 0 34px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .floating-actions {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .floating-btn {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.14);
+      font-weight: 800;
+    }
+
+    .floating-btn.zalo { background: linear-gradient(135deg, #0068ff, #12b0ff); }
+    .floating-btn.phone { background: linear-gradient(135deg, #14b8a6, #12b981); }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .deployment-grid,
+      .cta-panel,
+      .dash-grid,
+      .stats-grid,
+      .feature-grid,
+      .workflow-grid,
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links { display: none; }
+
+      .mobile-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 46px;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.76);
+        cursor: pointer;
+      }
+
+      .nav-mobile {
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        padding: 16px;
+        border-radius: 22px;
+        background: rgba(255,255,255,0.94);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+      }
+
+      .nav-mobile.is-open { display: flex; }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner,
+      .hero-visual,
+      .cta-panel,
+      .contact-card,
+      .deployment-card,
+      .steps-card { padding: 16px; }
+
+      .nav-actions .btn,
+      .nav-actions .pill { display: none; }
+
+      .hero-title { font-size: 2.45rem; }
+
+      .section-title,
+      .cta-title { font-size: 1.9rem; }
+
+      .floating-actions {
+        right: 12px;
+        bottom: 12px;
+      }
+
+      .floating-btn {
+        width: 46px;
+        height: 46px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-noise" aria-hidden="true"></div>
+  <div class="page-blur" aria-hidden="true"></div>
+
+  <header class="site-nav" id="siteNav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>
+          <span class="brand-name">SAC-EV Control</span>
+          <span class="brand-sub">Charging. Safety. Camera. Operations.</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Điều hướng chính">
+        <a class="nav-link" href="#modules">Module</a>
+        <a class="nav-link" href="#workflows">Quy trình</a>
+        <a class="nav-link" href="#deployment">Triển khai</a>
+        <a class="nav-link" href="#contact">Liên hệ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="pill" id="topPhoneLink" href="mailto:contact@sacxemaydien.vn">Demo theo nhu cầu</a>
+        <a class="btn btn-secondary" href="#modules">Xem năng lực</a>
+        <a class="btn btn-primary" id="topAppLink" href="#contact">Đăng nhập hệ thống</a>
+        <button class="mobile-toggle" type="button" id="mobileToggle" aria-label="Mở menu">☰</button>
+      </div>
+
+      <div class="nav-mobile" id="mobileNav">
+        <a class="nav-link" href="#modules">Module</a>
+        <a class="nav-link" href="#workflows">Quy trình</a>
+        <a class="nav-link" href="#deployment">Triển khai</a>
+        <a class="nav-link" href="#contact">Liên hệ</a>
+        <a class="btn btn-secondary" href="#modules">Xem năng lực</a>
+        <a class="btn btn-primary" id="mobileAppLink" href="#contact">Đăng nhập hệ thống</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <span class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Landing static cho GitHub Pages, bám sát hệ thống thật
+          </span>
+
+          <h1 class="hero-title">Nền tảng <span>quản lý sạc xe máy điện</span> cho bãi xe vận hành thực tế</h1>
+          <p class="hero-lead">
+            Một trang giới thiệu gọn, rõ và đủ sức demo cho giải pháp quản lý trạm sạc, camera AI, cảnh báo cháy,
+            nhận diện biển số và điều hành đội trực. Phần index này chạy độc lập trên GitHub, còn hệ thống vận hành
+            thật có thể tiếp tục chạy local để bám camera RTSP và thiết bị tại hiện trường.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" id="heroAppLink" href="#contact">Đăng nhập hệ thống</a>
+            <a class="btn btn-secondary" href="#deployment">Xem mô hình triển khai</a>
+            <a class="btn btn-ghost" id="heroPhoneLink" href="mailto:contact@sacxemaydien.vn">Yêu cầu demo</a>
+          </div>
+
+          <div class="hero-meta">
+            <div class="metric">
+              <span class="metric-value">01 giao diện</span>
+              <span class="metric-label">Tập trung trạng thái trạm sạc, camera, cảnh báo và luồng vận hành vào một màn hình rõ ràng.</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value">24/7</span>
+              <span class="metric-label">Theo dõi socket, camera và sự cố trong môi trường có thiết bị điện hoạt động liên tục.</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value">AI + IoT</span>
+              <span class="metric-label">Từ phát hiện khói đến log điều khiển thiết bị, mọi lớp dữ liệu đều bám sát use case thật.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-halo"></div>
+          <div class="visual-halo-2"></div>
+
+          <div class="visual-top">
+            <span class="visual-chip">Ops Console</span>
+            <span class="signal">Realtime online</span>
+          </div>
+
+          <div class="visual-stack">
+            <div class="dash-panel">
+              <div class="dash-header">
+                <div>
+                  <div class="dash-title">Operational Health</div>
+                </div>
+                <span class="visual-chip">11 camera • 26 socket</span>
+              </div>
+
+              <div class="dash-grid">
+                <div class="status-card">
+                  <div class="status-score">
+                    <b>98.6</b>
+                    <span>Health score</span>
+                  </div>
+
+                  <div class="bars">
+                    <div>
+                      <div class="bar-top"><span>Ổ cắm sẵn sàng</span><span>92%</span></div>
+                      <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
+                    </div>
+                    <div>
+                      <div class="bar-top"><span>Camera ổn định</span><span>96%</span></div>
+                      <div class="bar-track"><div class="bar-fill" style="width:96%"></div></div>
+                    </div>
+                    <div>
+                      <div class="bar-top"><span>Xử lý alert đúng SLA</span><span>89%</span></div>
+                      <div class="bar-track"><div class="bar-fill" style="width:89%"></div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mini-stack">
+                  <div class="mini-card">
+                    <strong>124</strong>
+                    <span>Phiên sạc hoàn tất trong ngày, theo dõi được theo khu vực và tenant.</span>
+                  </div>
+                  <div class="mini-card">
+                    <strong>03</strong>
+                    <span>Sự kiện ưu tiên cao đang mở: khói, quá tải dòng, vi phạm đỗ xe.</span>
+                  </div>
+                  <div class="mini-card">
+                    <strong>08</strong>
+                    <span>Luồng camera đang được phân phối tới đội trực và bảo vệ.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="events">
+                <div class="event-item">
+                  <span class="event-dot dot-ok"></span>
+                  <div class="event-copy">
+                    <strong>Camera khu B ổn định</strong>
+                    <span>Luồng trực tiếp và OCR biển số đang hoạt động bình thường.</span>
+                  </div>
+                  <span class="event-time">1 phút</span>
+                </div>
+
+                <div class="event-item">
+                  <span class="event-dot dot-warn"></span>
+                  <div class="event-copy">
+                    <strong>Socket S3 vượt ngưỡng dòng</strong>
+                    <span>Tự động cắt tải và ghi log để bảo trì kiểm tra.</span>
+                  </div>
+                  <span class="event-time">4 phút</span>
+                </div>
+
+                <div class="event-item">
+                  <span class="event-dot dot-danger"></span>
+                  <div class="event-copy">
+                    <strong>Hầm B2 phát hiện khói</strong>
+                    <span>Đã sinh cảnh báo, lưu ảnh và đẩy thông báo cho đội vận hành.</span>
+                  </div>
+                  <span class="event-time">7 phút</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell ticker">
+        <div class="ticker-track">
+          <span class="ticker-tag">Charging session orchestration</span>
+          <span class="ticker-tag">Camera AI monitoring</span>
+          <span class="ticker-tag">Fire and smoke detection</span>
+          <span class="ticker-tag">Plate recognition</span>
+          <span class="ticker-tag">Guard workflow</span>
+          <span class="ticker-tag">Resident and tenant operations</span>
+          <span class="ticker-tag">IoT metering and command log</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <span class="eyebrow">Giá trị cốt lõi</span>
+          <h2 class="section-title">Trang index này tập trung đúng phần sạc xe máy điện và vận hành bãi xe</h2>
+          <p class="section-lead">
+            Tôi đã bỏ tư duy landing chung chung. Nội dung ở đây được neo trực tiếp vào bài toán sạc xe máy điện,
+            quản lý camera, cảnh báo an toàn điện và giám sát sự cố trong nhà xe, phù hợp để đưa lên GitHub làm website public.
+          </p>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <strong>Triển khai thực dụng</strong>
+            <span>Public site ở GitHub, còn backend và camera processing vẫn để local hoặc edge server tại hiện trường.</span>
+          </article>
+          <article class="stat-card">
+            <strong>Dễ demo cho khách</strong>
+            <span>Chủ đầu tư hoặc ban quản lý nhìn vào sẽ hiểu ngay hệ thống đang giải quyết điều gì.</span>
+          </article>
+          <article class="stat-card">
+            <strong>Nội dung không giả lập</strong>
+            <span>Copy bám đúng use case: phiên sạc, socket, cảnh báo quá dòng, camera, OCR và log sự cố.</span>
+          </article>
+          <article class="stat-card">
+            <strong>Tách public và private</strong>
+            <span>Landing public không còn phụ thuộc vào session Flask, còn hệ thống login tiếp tục giữ riêng.</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules">
+      <div class="shell">
+        <div class="section-head">
+          <span class="eyebrow">Module cốt lõi</span>
+          <h2 class="section-title">Các năng lực chính của hệ thống quản lý sạc xe máy điện</h2>
+          <p class="section-lead">
+            Đây là phần khách hàng cần thấy ngay khi mở website: hệ thống không chỉ có dashboard, mà có đủ lớp vận hành để dùng ngoài thực tế.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon">01</div>
+            <h3>Charging Ops</h3>
+            <p>Quản lý trạm sạc, socket, phiên sạc, tenant và trạng thái bất thường ở cấp điểm sạc.</p>
+            <ul class="feature-list">
+              <li>Kiểm soát trạng thái từng ổ cắm và phiên sạc đang mở.</li>
+              <li>Ghi log command IoT, meter reading và trạng thái thiết bị.</li>
+              <li>Phù hợp cho bãi xe điện, tầng hầm, khu dân cư và depot nội bộ.</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">02</div>
+            <h3>Camera AI Control</h3>
+            <p>Quản lý camera, luồng trực tiếp và sự kiện phát sinh từ nhận diện hình ảnh trong khu vực sạc.</p>
+            <ul class="feature-list">
+              <li>Kết nối RTSP và hiển thị theo đúng vai trò vận hành.</li>
+              <li>Giữ lại lịch sử sự kiện để bảo vệ và ban quản lý tra soát.</li>
+              <li>Phù hợp với mô hình nhiều block, nhiều tầng và nhiều vùng cấm.</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">03</div>
+            <h3>Safety and Fire Detection</h3>
+            <p>Phát hiện khói, lửa và bất thường để sinh alert, incident và quy trình phản ứng ngay lập tức.</p>
+            <ul class="feature-list">
+              <li>Cảnh báo sớm cho khu vực có mật độ thiết bị điện cao.</li>
+              <li>Tách luồng test và production cho giám sát an toàn.</li>
+              <li>Hỗ trợ đội trực, bảo trì và PCCC phản ứng nhanh hơn.</li>
+            </ul>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">04</div>
+            <h3>Plate, Face and OCR</h3>
+            <p>Nhận diện biển số, khuôn mặt và hồ sơ để tăng tốc kiểm soát ra vào và tra cứu sự kiện.</p>
+            <ul class="feature-list">
+              <li>Tối ưu cho cổng vào, khu gửi xe và bàn trực bảo vệ.</li>
+              <li>Kết hợp log nhận diện với vi phạm, sự cố và hồ sơ cư dân.</li>
+              <li>Giảm thao tác tay và thời gian xác minh tại hiện trường.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflows">
+      <div class="shell">
+        <div class="section-head">
+          <span class="eyebrow">Quy trình sử dụng</span>
+          <h2 class="section-title">Cách hệ thống đi từ dữ liệu hiện trường sang hành động vận hành</h2>
+          <p class="section-lead">
+            Phần này quan trọng vì nó cho khách hàng thấy phần mềm không đứng riêng lẻ, mà nằm giữa camera, ổ sạc, đội trực và quy trình xử lý sự cố.
+          </p>
+        </div>
+
+        <div class="workflow-grid">
+          <article class="workflow-card">
+            <div class="workflow-index">A1</div>
+            <h3>Phát hiện và phản ứng</h3>
+            <p>AI tạo sự kiện, hệ thống phân loại mức độ và đẩy cảnh báo cho đội trực theo đúng thứ tự ưu tiên.</p>
+            <ul class="workflow-list">
+              <li>Khói hoặc lửa sẽ tạo incident có dấu thời gian và khu vực.</li>
+              <li>Sự kiện vi phạm hoặc biển số bất thường được gắn camera liên quan.</li>
+              <li>Đội bảo vệ có thể tra cứu lại từ dashboard hoặc lịch sử sự kiện.</li>
+            </ul>
+          </article>
+
+          <article class="workflow-card">
+            <div class="workflow-index">A2</div>
+            <h3>Vận hành trạm sạc</h3>
+            <p>Hệ thống theo dõi phiên sạc, trạng thái socket và ngưỡng an toàn để vừa vận hành được vừa dễ đối soát.</p>
+            <ul class="workflow-list">
+              <li>Quá dòng hoặc mất phản hồi từ thiết bị được ghi nhận tức thời.</li>
+              <li>Lịch sử dùng điện và điều khiển được lưu theo phiên và người dùng.</li>
+              <li>Phù hợp cho mô hình phải báo cáo định kỳ với ban quản lý tòa nhà.</li>
+            </ul>
+          </article>
+
+          <article class="workflow-card">
+            <div class="workflow-index">A3</div>
+            <h3>Ra quyết định bằng dữ liệu</h3>
+            <p>Dashboard hợp nhất giúp chuyển từ giám sát bị động sang điều hành chủ động, đặc biệt khi số lượng camera và thiết bị tăng lên.</p>
+            <ul class="workflow-list">
+              <li>Thống kê camera, alert, sự cố và hiệu suất xử lý theo ca trực.</li>
+              <li>Dễ mở rộng thêm báo cáo định kỳ hoặc lớp AI trợ lý sau này.</li>
+              <li>Landing GitHub đóng vai trò sales deck online cho hệ thống.</li>
+            </ul>
+          </article>
+
+          <article class="workflow-card">
+            <div class="workflow-index">A4</div>
+            <h3>Tách public site và app nội bộ</h3>
+            <p>Website public chạy độc lập trên GitHub, còn app vận hành giữ riêng để bám camera local và thiết bị thật.</p>
+            <ul class="workflow-list">
+              <li>SEO và domain public không còn phụ thuộc VPS hiện tại.</li>
+              <li>Phần camera và AI vẫn đặt gần nguồn RTSP để ổn định hơn.</li>
+              <li>Dễ tách hạ tầng bán hàng khỏi hạ tầng vận hành.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="deployment">
+      <div class="shell">
+        <div class="section-head">
+          <span class="eyebrow">Mô hình triển khai</span>
+          <h2 class="section-title">Phương án phù hợp với chiến lược anh đang chọn</h2>
+          <p class="section-lead">
+            Public site lên GitHub để gắn domain và làm bộ mặt sản phẩm. App login cùng các module camera, RTSP, AI và IoT vẫn để local hoặc edge server tại bãi xe.
+          </p>
+        </div>
+
+        <div class="deployment-grid">
+          <div class="deployment-card">
+            <h3>Kiến trúc đề xuất</h3>
+            <ul class="model-list">
+              <li><strong>Public website:</strong> GitHub Pages + domain riêng, chỉ phục vụ nội dung marketing và thông tin sản phẩm.</li>
+              <li><strong>App vận hành:</strong> chạy local hoặc trên server nội bộ để giữ kết nối camera RTSP, OCR và luồng sự kiện ổn định.</li>
+              <li><strong>Đăng nhập:</strong> trỏ sang app URL thật khi anh chốt domain con hoặc tunnel.</li>
+              <li><strong>Lợi ích:</strong> website public nhẹ, dễ SEO; hệ thống vận hành không bị buộc lên cloud khi camera cần chạy tại chỗ.</li>
+            </ul>
+          </div>
+
+          <div class="steps-card">
+            <h3>Các bước để đưa lên GitHub</h3>
+            <ol class="steps">
+              <li><strong>Commit repo:</strong> file `index.html` này nằm ở root nên GitHub Pages có thể dùng trực tiếp.</li>
+              <li><strong>Bật Pages:</strong> chọn branch chính và source từ root.</li>
+              <li><strong>Gắn domain:</strong> trỏ domain public vào GitHub Pages.</li>
+              <li><strong>Cập nhật nút đăng nhập:</strong> sửa biến cấu hình `APP_URL` trong script cuối file khi anh chốt app URL thật.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-wrap" id="contact">
+      <div class="shell">
+        <div class="cta-panel">
+          <div class="cta-copy">
+            <span class="eyebrow">Sẵn để public</span>
+            <h2 class="cta-title">Index này được viết để anh có thể đẩy thẳng lên GitHub ngay bây giờ</h2>
+            <p>
+              Phần code này độc lập với Flask, không dùng Jinja, không cần session và không chạm vào backend hiện tại.
+              Anh chỉ cần đổi vài giá trị cấu hình ở cuối file là có thể biến nó thành website chính thức cho giải pháp quản lý sạc xe máy điện.
+            </p>
+            <div class="cta-points">
+              <span class="cta-point">Static, không phụ thuộc backend</span>
+              <span class="cta-point">Giữ đúng ngữ cảnh sạc xe máy điện</span>
+              <span class="cta-point">Dễ gắn domain sau khi publish</span>
+            </div>
+          </div>
+
+          <aside class="contact-card">
+            <div>
+              <h3>Kênh hành động nhanh</h3>
+              <p>
+                Website public chạy tại sacxemaydien.vn, còn hệ thống vận hành và đăng nhập được tách riêng tại app.sacxemaydien.vn.
+              </p>
+            </div>
+
+            <div class="contact-grid">
+              <a class="contact-link" id="contactAppLink" href="#contact">
+                <span>
+                  <strong>Đăng nhập hệ thống</strong>
+                  <span>Đi thẳng tới app.sacxemaydien.vn để vào hệ thống vận hành</span>
+                </span>
+                <span class="contact-arrow">→</span>
+              </a>
+
+              <a class="contact-link" id="contactPhoneLink" href="mailto:contact@sacxemaydien.vn">
+                <span>
+                  <strong>Yêu cầu demo</strong>
+                  <span>Đổi sang hotline thật hoặc link tư vấn khi anh chốt thông tin bán hàng</span>
+                </span>
+                <span class="contact-arrow">→</span>
+              </a>
+
+              <a class="contact-link" id="contactZaloLink" href="https://zalo.me/" target="_blank" rel="noopener noreferrer">
+                <span>
+                  <strong>Zalo tư vấn</strong>
+                  <span>Có thể thay bằng số Zalo chính thức để nhận yêu cầu demo nhanh</span>
+                </span>
+                <span class="contact-arrow">→</span>
+              </a>
+
+              <a class="contact-link" id="contactEmailLink" href="mailto:contact@sacxemaydien.vn">
+                <span>
+                  <strong>contact@sacxemaydien.vn</strong>
+                  <span>Hòm thư tiếp nhận yêu cầu triển khai hoặc hợp tác</span>
+                </span>
+                <span class="contact-arrow">→</span>
+              </a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <span>SAC-EV Control static landing</span>
+      <span>Thiết kế cho GitHub Pages, nội dung tối ưu riêng cho hệ thống quản lý sạc xe máy điện.</span>
+    </div>
+  </footer>
+
+  <div class="floating-actions">
+    <a class="floating-btn zalo" id="floatingZaloLink" href="https://zalo.me/" target="_blank" rel="noopener noreferrer" aria-label="Liên hệ Zalo">Z</a>
+    <a class="floating-btn phone" id="floatingPhoneLink" href="mailto:contact@sacxemaydien.vn" aria-label="Yêu cầu demo">☎</a>
+  </div>
+
+  <script>
+    (function () {
+      var CONFIG = {
+        appUrl: "https://app.sacxemaydien.vn",
+        phoneDisplay: "Yêu cầu demo",
+        phoneHref: "mailto:contact@sacxemaydien.vn",
+        zaloUrl: "https://zalo.me/",
+        email: "contact@sacxemaydien.vn",
+        publicSiteUrl: "https://sacxemaydien.vn/"
+      };
+
+      var appLinkIds = ["topAppLink", "mobileAppLink", "heroAppLink", "contactAppLink"];
+      appLinkIds.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) {
+          el.href = CONFIG.appUrl;
+        }
+      });
+
+      var phoneTargets = ["topPhoneLink", "heroPhoneLink", "contactPhoneLink", "floatingPhoneLink"];
+      phoneTargets.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) {
+          return;
+        }
+        el.href = CONFIG.phoneHref;
+        if (id !== "floatingPhoneLink") {
+          el.textContent = CONFIG.phoneDisplay;
+        }
+      });
+
+      var zaloTargets = ["contactZaloLink", "floatingZaloLink"];
+      zaloTargets.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) {
+          el.href = CONFIG.zaloUrl;
+        }
+      });
+
+      var emailLink = document.getElementById("contactEmailLink");
+      if (emailLink) {
+        emailLink.href = "mailto:" + CONFIG.email;
+        var strong = emailLink.querySelector("strong");
+        if (strong) {
+          strong.textContent = CONFIG.email;
+        }
+      }
+
+      var toggle = document.getElementById("mobileToggle");
+      var mobileNav = document.getElementById("mobileNav");
+      if (toggle && mobileNav) {
+        toggle.addEventListener("click", function () {
+          mobileNav.classList.toggle("is-open");
+        });
+      }
+
+      Array.prototype.slice.call(document.querySelectorAll('.nav-link[href^="#"]')).forEach(function (link) {
+        link.addEventListener("click", function () {
+          if (mobileNav) {
+            mobileNav.classList.remove("is-open");
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
