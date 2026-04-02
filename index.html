@@ -459,6 +459,23 @@
       50% { box-shadow: 0 0 0 10px rgba(18, 185, 129, 0); }
     }
 
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.22,1,.36,1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .parallax-soft {
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+
     .hero-visual {
       position: relative;
       padding: 18px;
@@ -1069,6 +1086,110 @@
       border-left: 3px solid rgba(8, 109, 255, 0.16);
     }
 
+    .comparison-section {
+      padding-top: 10px;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .comparison-card {
+      padding: 28px;
+      border-radius: 30px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: 0 16px 42px rgba(15, 23, 42, 0.05);
+    }
+
+    .comparison-card.before {
+      background: linear-gradient(180deg, #fff7f7, #fffdfd);
+    }
+
+    .comparison-card.after {
+      background: linear-gradient(180deg, #f6fbff, #ffffff);
+    }
+
+    .comparison-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 14px;
+      margin-bottom: 16px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .comparison-card.before .comparison-label {
+      color: #b42318;
+      background: rgba(180, 35, 24, 0.08);
+    }
+
+    .comparison-card.after .comparison-label {
+      color: #0f5fd7;
+      background: rgba(8, 109, 255, 0.08);
+    }
+
+    .comparison-card h3 {
+      margin: 0 0 12px;
+      font-family: "Sora", sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+
+    .comparison-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    .comparison-list {
+      display: grid;
+      gap: 12px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .comparison-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .comparison-bullet {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .comparison-card.before .comparison-bullet {
+      color: #b42318;
+      background: rgba(180, 35, 24, 0.1);
+    }
+
+    .comparison-card.after .comparison-bullet {
+      color: #0f5fd7;
+      background: rgba(8, 109, 255, 0.1);
+    }
+
     .deployment-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
@@ -1187,6 +1308,7 @@
       .hero-grid,
       .visual-stack,
       .showcase-grid,
+      .comparison-grid,
       .deployment-grid,
       .cta-panel,
       .feature-grid,
@@ -1352,6 +1474,10 @@
         animation: none;
       }
 
+      .comparison-card {
+        padding: 22px;
+      }
+
       .logo-chip {
         min-width: calc(50% - 6px);
         justify-content: center;
@@ -1371,6 +1497,23 @@
       .floating-btn {
         width: 46px;
         height: 46px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+
+      .reveal-up,
+      .reveal-up.is-visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .board-card,
+      .showcase-float,
+      .signal {
+        animation: none;
       }
     }
   </style>
@@ -1430,8 +1573,8 @@
               <span class="hero-title-line">trên một màn hình duy nhất</span>
             </h1>
           <p class="hero-lead">
-            Dành cho ban quản lý tòa nhà, đơn vị vận hành bãi xe và chủ đầu tư cần một hệ thống dễ theo dõi,
-            cảnh báo kịp thời và đủ rõ ràng để đội bảo vệ, kỹ thuật và quản lý cùng sử dụng mỗi ngày.
+            Dành cho ban quản lý, đơn vị vận hành bãi xe và chủ đầu tư muốn biến một khu sạc dễ phát sinh rủi ro
+            thành một hệ thống có thể theo dõi, cảnh báo và điều phối rõ ràng theo thời gian thực.
           </p>
 
           <div class="hero-actions">
@@ -1575,10 +1718,10 @@
       <div class="shell">
         <div class="section-head">
           <span class="eyebrow">Giá trị khách hàng nhận được</span>
-          <h2 class="section-title">Giải pháp được viết theo đúng nhu cầu của ban quản lý và đội vận hành</h2>
+          <h2 class="section-title">Từ một bãi xe rời rạc thành khu vận hành có kiểm soát, có cảnh báo và có dữ liệu</h2>
           <p class="section-lead">
-            Thay vì nói về công nghệ nội bộ, website này tập trung vào những gì khách hàng thật sự quan tâm:
-            dễ theo dõi, dễ xử lý, dễ triển khai và đủ rõ để thuyết trình cho ban quản lý hoặc chủ đầu tư.
+            Điều khách hàng mua không chỉ là phần mềm. Họ mua cảm giác yên tâm hơn khi vận hành khu sạc, giảm lệ thuộc xử lý thủ công
+            và có một màn hình đủ rõ để cả bảo vệ, kỹ thuật lẫn quản lý cùng nhìn vào một bức tranh chung.
           </p>
         </div>
 
@@ -1617,10 +1760,10 @@
 
         <div class="showcase-copy">
           <span class="eyebrow">Minh họa theo bối cảnh thật</span>
-          <h2 class="section-title">Không chỉ đẹp hơn, trang này cần giúp khách hiểu hệ thống giải quyết bài toán gì</h2>
+          <h2 class="section-title">Khách không cần đọc hết mới hiểu, họ cần nhìn vài giây là thấy đúng bài toán của mình</h2>
           <p>
-            Landing tốt không phải là nhồi nhiều chữ. Nó phải cho người xem thấy ngay: đây là giải pháp cho bãi xe có khu sạc,
-            có camera, có đội bảo vệ và có nhu cầu cảnh báo sớm để giảm rủi ro vận hành.
+            Một landing thuyết phục phải mô tả được bối cảnh thật: bãi xe có camera, có khu sạc, có nhiều ca trực,
+            có sự cố phát sinh và cần một hệ thống để mọi người xử lý nhanh hơn thay vì chỉ phản ứng khi có vấn đề lớn.
           </p>
 
           <ul class="showcase-list">
@@ -1643,11 +1786,47 @@
       </div>
     </section>
 
+    <section class="comparison-section">
+      <div class="shell">
+        <div class="section-head">
+          <span class="eyebrow">Trước và sau triển khai</span>
+          <h2 class="section-title">Khác biệt mà ban quản lý và đội trực cảm nhận được ngay trong vận hành hàng ngày</h2>
+          <p class="section-lead">
+            Đây là phần giúp khách hàng tự so sánh hiện trạng của họ với trạng thái mong muốn sau khi có một nền tảng giám sát khu sạc được tổ chức bài bản.
+          </p>
+        </div>
+
+        <div class="comparison-grid">
+          <article class="comparison-card before">
+            <span class="comparison-label">Trước khi có hệ thống</span>
+            <h3>Nhiều việc phải nhớ bằng người và xử lý theo phản xạ</h3>
+            <p>Bãi xe vẫn chạy được, nhưng đội vận hành thường bị động vì thông tin nằm rời rạc ở camera, sổ ghi chép và kinh nghiệm từng ca trực.</p>
+            <ul class="comparison-list">
+              <li><span class="comparison-bullet">!</span><span>Xe ra vào, khu sạc và sự cố an toàn không nằm trong cùng một luồng theo dõi.</span></li>
+              <li><span class="comparison-bullet">!</span><span>Khi có khói, quá tải hoặc xe lạ, thời gian phản ứng phụ thuộc nhiều vào việc ai đang trực.</span></li>
+              <li><span class="comparison-bullet">!</span><span>Ban quản lý khó nhìn tổng quan để báo cáo hoặc đánh giá hiệu quả vận hành theo từng giai đoạn.</span></li>
+            </ul>
+          </article>
+
+          <article class="comparison-card after">
+            <span class="comparison-label">Sau khi triển khai</span>
+            <h3>Một màn hình chung để theo dõi, cảnh báo và phối hợp xử lý</h3>
+            <p>Mọi dữ liệu quan trọng được gom về một nơi để đội bảo vệ, kỹ thuật và quản lý đều hiểu nhanh điều gì đang diễn ra và cần ưu tiên gì.</p>
+            <ul class="comparison-list">
+              <li><span class="comparison-bullet">+</span><span>Biển số, camera, phiên sạc và cảnh báo bất thường được nhìn theo cùng một ngữ cảnh vận hành.</span></li>
+              <li><span class="comparison-bullet">+</span><span>Ca trực phản ứng nhanh hơn vì cảnh báo rõ khu vực, mức độ ưu tiên và lịch sử liên quan.</span></li>
+              <li><span class="comparison-bullet">+</span><span>Ban quản lý có câu chuyện rõ ràng hơn để demo cho chủ đầu tư hoặc mở rộng quy mô theo từng khu vực.</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section id="modules">
       <div class="shell">
         <div class="section-head">
           <span class="eyebrow">Tính năng nổi bật</span>
-          <h2 class="section-title">Những gì hệ thống có thể hỗ trợ cho bãi xe và khu vực sạc</h2>
+          <h2 class="section-title">Một nền tảng, nhiều bài toán vận hành khu sạc được giải quyết gọn hơn</h2>
           <p class="section-lead">
             Đây là những tình huống khách hàng gặp hàng ngày và cũng là những gì hệ thống được thiết kế để xử lý rõ ràng, thực dụng.
           </p>
@@ -1705,7 +1884,7 @@
       <div class="shell">
         <div class="section-head">
           <span class="eyebrow">Quy trình sử dụng</span>
-          <h2 class="section-title">Hệ thống hỗ trợ đội vận hành như thế nào trong thực tế</h2>
+          <h2 class="section-title">Từ lúc xe đi vào đến khi phát sinh sự cố, đội trực luôn biết mình cần làm gì</h2>
           <p class="section-lead">
             Website nên giúp khách hình dung ngay dòng chảy vận hành: xe đi vào, sử dụng khu vực sạc, phát sinh sự cố và cách đội trực xử lý.
           </p>
@@ -1763,7 +1942,7 @@
       <div class="shell">
         <div class="section-head">
           <span class="eyebrow">Lộ trình triển khai</span>
-          <h2 class="section-title">Có thể bắt đầu gọn, thử nhanh và mở rộng theo hiệu quả thực tế</h2>
+          <h2 class="section-title">Khởi động gọn, đo hiệu quả sớm rồi mới mở rộng quy mô</h2>
           <p class="section-lead">
             Đây là mô hình phù hợp với cách khách hàng thường ra quyết định: khảo sát, chạy thử, đánh giá hiệu quả rồi mới mở rộng quy mô.
           </p>
@@ -1798,10 +1977,10 @@
         <div class="cta-panel">
           <div class="cta-copy">
             <span class="eyebrow">Đăng ký demo</span>
-            <h2 class="cta-title">Sẵn sàng để dùng làm website giới thiệu chính thức cho giải pháp sạc xe máy điện</h2>
+            <h2 class="cta-title">Muốn có bản demo bám sát đúng bãi xe, khu sạc và cách vận hành của anh?</h2>
             <p>
-              Nếu anh đang cần một bản demo bám sát bối cảnh thực tế của tòa nhà hoặc bãi xe, có thể bắt đầu từ một khu vực trước,
-              đánh giá hiệu quả vận hành rồi mở rộng dần theo đúng nhu cầu sử dụng.
+              Chúng ta có thể bắt đầu từ đúng hiện trạng đang có, dựng bản demo đủ sát để ban quản lý nhìn thấy giá trị thật,
+              sau đó mới quyết định phạm vi chạy thử và lộ trình mở rộng.
             </p>
             <div class="cta-points">
               <span class="cta-point">Trải nghiệm theo bối cảnh thực tế</span>
@@ -1873,7 +2052,7 @@
     (function () {
       var CONFIG = {
         appUrl: "https://app.sacxemaydien.vn",
-        phoneDisplay: "Đăng ký tư vấn",
+        phoneDisplay: "Yêu cầu demo",
         phoneHref: "mailto:contact@sacxemaydien.vn",
         zaloUrl: "https://zalo.me/",
         email: "contact@sacxemaydien.vn",
@@ -1932,6 +2111,65 @@
           }
         });
       });
+
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var revealTargets = Array.prototype.slice.call(document.querySelectorAll(
+        '.hero-copy, .hero-visual, .logo-cloud, .section-head, .stat-card, .showcase-panel, .showcase-copy, .comparison-card, .feature-card, .workflow-card, .deployment-card, .steps-card, .cta-panel'
+      ));
+
+      revealTargets.forEach(function (node, index) {
+        node.classList.add('reveal-up');
+        node.style.transitionDelay = Math.min(index % 4, 3) * 70 + 'ms';
+      });
+
+      if (reduceMotion) {
+        revealTargets.forEach(function (node) {
+          node.classList.add('is-visible');
+          node.style.transitionDelay = '0ms';
+        });
+      } else if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.14,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealTargets.forEach(function (node) {
+          observer.observe(node);
+        });
+      } else {
+        revealTargets.forEach(function (node) {
+          node.classList.add('is-visible');
+        });
+      }
+
+      var parallaxTargets = Array.prototype.slice.call(document.querySelectorAll('.visual-media-card, .showcase-image'));
+      parallaxTargets.forEach(function (node) {
+        node.classList.add('parallax-soft');
+      });
+
+      if (!reduceMotion && parallaxTargets.length) {
+        var updateParallax = function () {
+          var viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+
+          parallaxTargets.forEach(function (node) {
+            var rect = node.getBoundingClientRect();
+            var progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+            var translate = Math.max(-8, Math.min(8, (progress - 0.5) * 14));
+            node.style.transform = 'translate3d(0,' + translate.toFixed(2) + 'px,0)';
+          });
+        };
+
+        updateParallax();
+        window.addEventListener('scroll', updateParallax, { passive: true });
+        window.addEventListener('resize', updateParallax);
+      }
     })();
   </script>
 </body>
