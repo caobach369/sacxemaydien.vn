@@ -1500,6 +1500,76 @@
       line-height: 1.7;
     }
 
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .testimonial-card {
+      padding: 26px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: 0 16px 42px rgba(15, 23, 42, 0.05);
+    }
+
+    .testimonial-mark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(8, 109, 255, 0.12), rgba(78, 161, 255, 0.16));
+      color: var(--brand);
+      font-family: "Sora", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .testimonial-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.96rem;
+    }
+
+    .testimonial-card strong {
+      display: block;
+      margin-top: 18px;
+      color: var(--text);
+      font-family: "Sora", sans-serif;
+      font-size: 1rem;
+    }
+
+    .testimonial-role {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .faq-card {
+      position: relative;
+    }
+
+    .faq-card::before {
+      content: "Q";
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(8, 109, 255, 0.08);
+      color: var(--brand);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
     .cta-wrap {
       padding-bottom: 74px;
     }
@@ -1602,6 +1672,7 @@
       .case-study-grid,
       .deployment-grid,
       .cta-panel,
+      .testimonial-grid,
       .feature-grid,
       .workflow-grid,
       .faq-grid {
@@ -1773,7 +1844,8 @@
 
       .case-story,
       .case-study-quote,
-      .pricing-card {
+      .pricing-card,
+      .testimonial-card {
         padding: 20px;
       }
 
@@ -2393,6 +2465,75 @@
         </div>
 
         <p class="pricing-note">Mức đầu tư sẽ được đề xuất theo hiện trạng camera, phạm vi khu sạc và mục tiêu triển khai. Điểm chính của section này là giúp khách hàng hiểu cách bắt đầu, không phải ép họ vào một gói cứng.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <span class="eyebrow">Niềm tin từ góc nhìn vận hành</span>
+          <h2 class="section-title">Điều khách hàng muốn nghe không phải là lời quảng cáo, mà là cảm giác hệ thống này sẽ giúp họ đỡ bị động hơn</h2>
+          <p class="section-lead">
+            Những câu dưới đây được viết theo đúng kiểu phản hồi mà ban quản lý, đội kỹ thuật và đơn vị vận hành thường quan tâm khi cân nhắc một giải pháp cho khu sạc.
+          </p>
+        </div>
+
+        <div class="testimonial-grid">
+          <article class="testimonial-card">
+            <div class="testimonial-mark">“</div>
+            <p>Điều thuyết phục nhất là mọi thứ nằm trên một màn hình đủ rõ. Không phải mở từng camera rồi hỏi từng ca trực mới biết khu nào đang có vấn đề.</p>
+            <strong>Trưởng ban quản lý</strong>
+            <span class="testimonial-role">Mô hình chung cư có tầng hầm và khu sạc tập trung</span>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-mark">“</div>
+            <p>Khi có cảnh báo, đội kỹ thuật biết nên kiểm tra cái gì trước. Giá trị lớn nhất là rút ngắn thời gian phản ứng chứ không phải chỉ thêm một dashboard.</p>
+            <strong>Phụ trách kỹ thuật</strong>
+            <span class="testimonial-role">Đơn vị vận hành bãi xe nhiều ca trực</span>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-mark">“</div>
+            <p>Nếu demo được đúng bối cảnh bãi xe của mình thì rất dễ trình bày với chủ đầu tư. Lúc đó câu chuyện không còn là mua phần mềm, mà là giảm rủi ro vận hành.</p>
+            <strong>Đơn vị triển khai dự án</strong>
+            <span class="testimonial-role">Kịch bản pilot trước khi mở rộng toàn khu</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="section-head">
+          <span class="eyebrow">Câu hỏi thường gặp</span>
+          <h2 class="section-title">Những điểm khách thường hỏi trước khi chốt demo hoặc pilot</h2>
+          <p class="section-lead">
+            FAQ này giúp gỡ bớt các băn khoăn phổ biến, để khách hàng hiểu rằng họ có thể bắt đầu nhỏ, đo hiệu quả sớm và không cần triển khai ồ ạt ngay từ đầu.
+          </p>
+        </div>
+
+        <div class="faq-grid">
+          <article class="faq-card">
+            <h3>Có bắt buộc phải triển khai toàn bộ bãi xe ngay từ đầu không?</h3>
+            <p>Không. Cách hợp lý hơn là chọn một khu vực có mật độ sử dụng cao hoặc rủi ro cao để chạy thử trước, sau đó đo hiệu quả rồi mới mở rộng.</p>
+          </article>
+
+          <article class="faq-card">
+            <h3>Giải pháp này phù hợp với ai nhất?</h3>
+            <p>Phù hợp với ban quản lý chung cư, đơn vị vận hành bãi xe, chủ đầu tư trạm sạc hoặc dự án muốn kiểm soát khu sạc xe điện rõ ràng hơn.</p>
+          </article>
+
+          <article class="faq-card">
+            <h3>Nếu khách chỉ muốn demo để trình bày nội bộ thì sao?</h3>
+            <p>Hoàn toàn phù hợp. Phần demo có thể được dựng theo đúng bối cảnh thực tế để hỗ trợ trình bày với ban quản lý hoặc chủ đầu tư trước khi vào pilot.</p>
+          </article>
+
+          <article class="faq-card">
+            <h3>Cần chuẩn bị gì để bắt đầu?</h3>
+            <p>Chỉ cần mặt bằng cơ bản, sơ đồ camera, phạm vi khu sạc và mục tiêu vận hành. Từ đó có thể đề xuất cách khảo sát, demo và pilot phù hợp.</p>
+          </article>
+        </div>
       </div>
     </section>
 
