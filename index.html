@@ -123,9 +123,9 @@
       background: rgba(255,255,255,0.8);
       backdrop-filter: blur(18px) saturate(160%);
       box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-      display: flex;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
       align-items: center;
-      justify-content: space-between;
       gap: 16px;
     }
 
@@ -134,6 +134,7 @@
       align-items: center;
       gap: 12px;
       min-width: 0;
+      max-width: 280px;
     }
 
     .brand-mark {
@@ -193,8 +194,14 @@
     }
 
     .nav-links {
-      flex-wrap: wrap;
+      min-width: 0;
+      flex-wrap: nowrap;
       justify-content: center;
+    }
+
+    .nav-actions {
+      flex-wrap: nowrap;
+      flex-shrink: 0;
     }
 
     .nav-link {
@@ -202,6 +209,7 @@
       border-radius: 14px;
       color: var(--muted);
       font-size: 0.93rem;
+      white-space: nowrap;
       transition: color var(--transition), background var(--transition);
     }
 
@@ -222,6 +230,7 @@
       border-radius: 14px;
       border: 1px solid transparent;
       font-weight: 600;
+      white-space: nowrap;
       transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
     }
 
@@ -256,6 +265,10 @@
 
     .mobile-toggle,
     .nav-mobile { display: none; }
+
+    .nav-actions .pill {
+      display: none;
+    }
 
     main { position: relative; z-index: 1; }
 
@@ -824,6 +837,10 @@
         grid-template-columns: 1fr;
       }
 
+      .nav-inner {
+        grid-template-columns: auto auto;
+      }
+
       .nav-links { display: none; }
 
       .mobile-toggle {
@@ -929,14 +946,13 @@
         <div class="hero-copy">
           <span class="hero-badge">
             <span class="hero-badge-dot"></span>
-            Landing static cho GitHub Pages, bám sát hệ thống thật
+            Giải pháp vận hành cho bãi xe điện và tầng hầm có trạm sạc
           </span>
 
           <h1 class="hero-title">Nền tảng <span>quản lý sạc xe máy điện</span> cho bãi xe vận hành thực tế</h1>
           <p class="hero-lead">
-            Một trang giới thiệu gọn, rõ và đủ sức demo cho giải pháp quản lý trạm sạc, camera AI, cảnh báo cháy,
-            nhận diện biển số và điều hành đội trực. Phần index này chạy độc lập trên GitHub, còn hệ thống vận hành
-            thật có thể tiếp tục chạy local để bám camera RTSP và thiết bị tại hiện trường.
+            Một nền tảng hợp nhất để quản lý trạm sạc xe máy điện, camera AI, cảnh báo an toàn và quy trình vận hành.
+            Phù hợp cho chung cư, bãi xe có mái, tầng hầm và mô hình cần theo dõi thiết bị điện theo thời gian thực.
           </p>
 
           <div class="hero-actions">
@@ -1070,10 +1086,10 @@
       <div class="shell">
         <div class="section-head">
           <span class="eyebrow">Giá trị cốt lõi</span>
-          <h2 class="section-title">Trang index này tập trung đúng phần sạc xe máy điện và vận hành bãi xe</h2>
+          <h2 class="section-title">Trang giới thiệu này nói đúng trọng tâm sản phẩm: sạc xe máy điện và vận hành bãi xe</h2>
           <p class="section-lead">
-            Tôi đã bỏ tư duy landing chung chung. Nội dung ở đây được neo trực tiếp vào bài toán sạc xe máy điện,
-            quản lý camera, cảnh báo an toàn điện và giám sát sự cố trong nhà xe, phù hợp để đưa lên GitHub làm website public.
+            Nội dung được neo trực tiếp vào bài toán sạc xe máy điện, quản lý camera, cảnh báo an toàn điện
+            và giám sát sự cố trong nhà xe, để khách nhìn vào là hiểu ngay đây là một hệ thống vận hành thật.
           </p>
         </div>
 
@@ -1196,7 +1212,7 @@
             <ul class="workflow-list">
               <li>Thống kê camera, alert, sự cố và hiệu suất xử lý theo ca trực.</li>
               <li>Dễ mở rộng thêm báo cáo định kỳ hoặc lớp AI trợ lý sau này.</li>
-              <li>Landing GitHub đóng vai trò sales deck online cho hệ thống.</li>
+              <li>Website public đóng vai trò như sales deck online cho đội kinh doanh và demo dự án.</li>
             </ul>
           </article>
 
@@ -1230,7 +1246,7 @@
             <ul class="model-list">
               <li><strong>Public website:</strong> GitHub Pages + domain riêng, chỉ phục vụ nội dung marketing và thông tin sản phẩm.</li>
               <li><strong>App vận hành:</strong> chạy local hoặc trên server nội bộ để giữ kết nối camera RTSP, OCR và luồng sự kiện ổn định.</li>
-              <li><strong>Đăng nhập:</strong> trỏ sang app URL thật khi anh chốt domain con hoặc tunnel.</li>
+              <li><strong>Đăng nhập:</strong> tách riêng ở app.sacxemaydien.vn để không ảnh hưởng phần public site.</li>
               <li><strong>Lợi ích:</strong> website public nhẹ, dễ SEO; hệ thống vận hành không bị buộc lên cloud khi camera cần chạy tại chỗ.</li>
             </ul>
           </div>
@@ -1238,10 +1254,10 @@
           <div class="steps-card">
             <h3>Các bước để đưa lên GitHub</h3>
             <ol class="steps">
-              <li><strong>Commit repo:</strong> file `index.html` này nằm ở root nên GitHub Pages có thể dùng trực tiếp.</li>
+              <li><strong>Commit repo:</strong> file chính đặt ở root để GitHub Pages dùng trực tiếp.</li>
               <li><strong>Bật Pages:</strong> chọn branch chính và source từ root.</li>
               <li><strong>Gắn domain:</strong> trỏ domain public vào GitHub Pages.</li>
-              <li><strong>Cập nhật nút đăng nhập:</strong> sửa biến cấu hình `APP_URL` trong script cuối file khi anh chốt app URL thật.</li>
+              <li><strong>Cập nhật nút đăng nhập:</strong> trỏ sang app.sacxemaydien.vn hoặc địa chỉ vận hành thực tế.</li>
             </ol>
           </div>
         </div>
@@ -1252,16 +1268,16 @@
       <div class="shell">
         <div class="cta-panel">
           <div class="cta-copy">
-            <span class="eyebrow">Sẵn để public</span>
-            <h2 class="cta-title">Index này được viết để anh có thể đẩy thẳng lên GitHub ngay bây giờ</h2>
+            <span class="eyebrow">Sẵn để giới thiệu</span>
+            <h2 class="cta-title">Sẵn sàng để dùng làm website chính thức cho giải pháp sạc xe máy điện</h2>
             <p>
-              Phần code này độc lập với Flask, không dùng Jinja, không cần session và không chạm vào backend hiện tại.
-              Anh chỉ cần đổi vài giá trị cấu hình ở cuối file là có thể biến nó thành website chính thức cho giải pháp quản lý sạc xe máy điện.
+              Website public và hệ thống vận hành được tách riêng để phần giới thiệu chạy nhẹ, ổn định, còn phần app nội bộ vẫn bám thiết bị,
+              camera và quy trình thực địa. Cách tách này phù hợp cho mô hình triển khai theo dự án hoặc theo từng tòa nhà.
             </p>
             <div class="cta-points">
               <span class="cta-point">Static, không phụ thuộc backend</span>
               <span class="cta-point">Giữ đúng ngữ cảnh sạc xe máy điện</span>
-              <span class="cta-point">Dễ gắn domain sau khi publish</span>
+              <span class="cta-point">Dễ gắn domain và tách app nội bộ</span>
             </div>
           </div>
 
@@ -1269,7 +1285,7 @@
             <div>
               <h3>Kênh hành động nhanh</h3>
               <p>
-                Website public chạy tại sacxemaydien.vn, còn hệ thống vận hành và đăng nhập được tách riêng tại app.sacxemaydien.vn.
+                Website public chạy tại sacxemaydien.vn, còn hệ thống vận hành và đăng nhập tách riêng tại app.sacxemaydien.vn để giữ luồng thiết bị ổn định.
               </p>
             </div>
 
