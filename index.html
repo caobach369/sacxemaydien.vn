@@ -286,8 +286,8 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: 34px;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+      gap: 28px;
       align-items: center;
     }
 
@@ -297,7 +297,7 @@
     }
 
     .hero-copy {
-      max-width: 680px;
+      max-width: 640px;
       text-align: left;
     }
 
@@ -336,10 +336,10 @@
     }
 
     .hero-title {
-      font-size: clamp(3.1rem, 4.45vw, 5rem);
-      max-width: 12.2ch;
+      font-size: clamp(2.8rem, 4vw, 4.6rem);
+      max-width: 11.3ch;
       margin-right: 0;
-      line-height: 0.93;
+      line-height: 0.94;
     }
 
     .hero-title-accent {
@@ -362,9 +362,9 @@
     }
 
     .hero-lead {
-      max-width: 38rem;
+      max-width: 35rem;
       margin: 0;
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
 
     .hero-actions,
@@ -379,8 +379,8 @@
     .hero-meta {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 30px;
+      gap: 12px;
+      margin-top: 24px;
       text-align: left;
     }
 
@@ -427,8 +427,8 @@
     }
 
     .metric {
-      padding: 20px;
-      border-radius: 24px;
+      padding: 18px;
+      border-radius: 22px;
       background: rgba(255,255,255,0.9);
       border: 1px solid rgba(148, 163, 184, 0.16);
       box-shadow: 0 16px 40px rgba(15, 23, 42, 0.05);
@@ -437,15 +437,15 @@
     .metric-value {
       display: block;
       font-family: "Sora", sans-serif;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       color: var(--brand);
     }
 
     .metric-label {
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       line-height: 1.55;
     }
 
@@ -478,7 +478,7 @@
 
     .hero-visual {
       position: relative;
-      padding: 18px;
+      padding: 16px;
       border-radius: 36px;
       background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(247,250,255,0.95));
       border: 1px solid rgba(148, 163, 184, 0.16);
@@ -583,8 +583,8 @@
 
     .visual-stage {
       position: relative;
-      min-height: 492px;
-      padding-bottom: 104px;
+      min-height: 456px;
+      padding-bottom: 92px;
     }
 
     .visual-media-card,
@@ -614,7 +614,7 @@
       position: relative;
       border-radius: 30px;
       overflow: hidden;
-      min-height: 100%;
+      min-height: 456px;
     }
 
     .visual-photo {
@@ -638,8 +638,8 @@
       right: 24px;
       bottom: 24px;
       z-index: 1;
-      max-width: 448px;
-      padding: 20px;
+      max-width: 420px;
+      padding: 18px;
       border-radius: 22px;
       background: rgba(10, 20, 34, 0.68);
       border: 1px solid rgba(255,255,255,0.12);
@@ -668,8 +668,8 @@
 
     .visual-summary {
       display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.92fr) minmax(0, 1.1fr);
-      gap: 16px;
+      grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+      gap: 14px;
       padding-top: 0;
       align-content: stretch;
     }
@@ -678,7 +678,7 @@
     .snapshot-card,
     .story-card {
       border-radius: 24px;
-      padding: 18px;
+      padding: 20px;
     }
 
     .board-card {
@@ -720,6 +720,7 @@
 
     .board-grid {
       display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
     }
 
@@ -744,8 +745,21 @@
     .showcase-list li,
     .showcase-caption {
       color: var(--muted);
-      font-size: 0.93rem;
+      font-size: 0.9rem;
       line-height: 1.65;
+    }
+
+    .board-note {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .board-note strong {
+      display: block;
+      margin-bottom: 10px;
+      font-family: "Sora", sans-serif;
+      font-size: 0.96rem;
     }
 
     .snapshot-card {
@@ -834,7 +848,7 @@
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 18px;
       box-shadow: none;
-      padding: 13px 14px;
+      padding: 14px;
     }
 
     .event-feed .event-copy strong {
@@ -954,7 +968,7 @@
     }
 
     .trust-strip {
-      padding-top: 20px;
+      padding-top: 8px;
     }
 
     .logo-cloud,
@@ -966,15 +980,16 @@
     }
 
     .logo-cloud {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
-      gap: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 16px;
       align-items: center;
-      padding: 18px 22px;
+      padding: 14px 18px;
     }
 
     .logo-cloud-label {
-      max-width: 240px;
+      max-width: none;
+      flex: 1 1 240px;
       font-size: 0.93rem;
       line-height: 1.6;
       color: var(--muted);
@@ -984,7 +999,8 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
+      flex: 999 1 560px;
+      gap: 10px;
     }
 
     .logo-chip,
@@ -992,10 +1008,10 @@
     .cta-point {
       display: inline-flex;
       align-items: center;
-      min-height: 38px;
-      padding: 0 15px;
+      min-height: 34px;
+      padding: 0 14px;
       border-radius: 999px;
-      font-size: 0.88rem;
+      font-size: 0.84rem;
       font-weight: 600;
       color: var(--text);
       background: rgba(8, 109, 255, 0.05);
@@ -1003,8 +1019,8 @@
     }
 
     .logo-chip {
-      min-height: 50px;
-      padding: 10px 16px;
+      min-height: 44px;
+      padding: 8px 14px;
       background: #fff;
       border-color: rgba(148, 163, 184, 0.14);
     }
@@ -1887,10 +1903,10 @@
     .floating-btn.zalo { background: linear-gradient(135deg, #0068ff, #12b0ff); }
     .floating-btn.phone { background: linear-gradient(135deg, #14b8a6, #12b981); }
 
-    @media (max-width: 1240px) {
+    @media (max-width: 1400px) {
       .hero-grid {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 24px;
       }
 
       .hero-copy {
@@ -1899,6 +1915,12 @@
 
       .hero-title {
         max-width: 13ch;
+      }
+
+      .hero-visual {
+        max-width: 940px;
+        width: 100%;
+        margin: 0 auto;
       }
     }
 
@@ -1931,6 +1953,10 @@
 
       .hero-title {
         max-width: 12ch;
+      }
+
+      .board-grid {
+        grid-template-columns: 1fr;
       }
 
       .hero-visual {
@@ -2332,29 +2358,19 @@
                     <span>Cảnh báo ưu tiên đang cần theo dõi</span>
                   </div>
                 </div>
-              </div>
-
-              <div class="snapshot-card">
-                <strong>Điều ban quản lý nhìn thấy ngay</strong>
-                <div class="snapshot-list">
+                <div class="board-note">
+                  <strong>Điều ban quản lý nhìn thấy ngay</strong>
+                  <div class="snapshot-list">
                   <div class="snapshot-row"><span class="snapshot-dot"></span><span>Xe vào bãi được nhận diện và đối chiếu nhanh.</span></div>
                   <div class="snapshot-row"><span class="snapshot-dot"></span><span>Khu vực sạc có cảnh báo quá tải và bất thường.</span></div>
                   <div class="snapshot-row"><span class="snapshot-dot"></span><span>Đội trực biết ngay khu vực nào cần ưu tiên xử lý.</span></div>
+                  </div>
                 </div>
               </div>
 
               <div class="event-feed">
                 <strong class="event-feed-title">Cảnh báo ưu tiên gần nhất</strong>
                 <div class="mini-stack">
-                  <div class="event-item">
-                    <span class="event-dot dot-ok"></span>
-                    <div class="event-copy">
-                      <strong>Camera khu B ổn định</strong>
-                      <span>Luồng trực tiếp và OCR biển số đang hoạt động bình thường.</span>
-                    </div>
-                    <span class="event-time">1 phút</span>
-                  </div>
-
                   <div class="event-item">
                     <span class="event-dot dot-warn"></span>
                     <div class="event-copy">
