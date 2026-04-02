@@ -1210,6 +1210,296 @@
       color: var(--text);
     }
 
+    .case-study-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .case-study-shell {
+      position: relative;
+      padding: 34px;
+      border-radius: 36px;
+      background:
+        radial-gradient(circle at top right, rgba(78, 161, 255, 0.18), transparent 26%),
+        linear-gradient(180deg, #0d1b2a 0%, #10233a 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 24px 70px rgba(9, 20, 37, 0.2);
+      color: #fff;
+    }
+
+    .case-study-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 30px 30px;
+      opacity: 0.26;
+      pointer-events: none;
+    }
+
+    .case-study-head,
+    .pricing-head {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .case-study-shell .eyebrow,
+    .pricing-card.featured .pricing-badge {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.12);
+      color: #d5e7ff;
+      box-shadow: none;
+    }
+
+    .case-study-shell .section-title,
+    .case-study-shell .section-lead,
+    .pricing-shell .section-title,
+    .pricing-shell .section-lead {
+      color: #fff;
+    }
+
+    .case-study-shell .section-lead,
+    .pricing-shell .section-lead,
+    .case-story p,
+    .case-study-quote p,
+    .pricing-note,
+    .pricing-list li,
+    .pricing-meta {
+      color: rgba(255,255,255,0.74);
+    }
+
+    .case-study-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .case-story,
+    .case-study-quote,
+    .case-study-metric,
+    .pricing-card {
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 18px 40px rgba(9, 20, 37, 0.16);
+    }
+
+    .case-story {
+      padding: 30px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(10px);
+    }
+
+    .case-story h3,
+    .case-study-quote strong,
+    .pricing-name,
+    .pricing-price {
+      font-family: "Sora", sans-serif;
+      letter-spacing: -0.03em;
+    }
+
+    .case-story h3 {
+      margin: 0 0 14px;
+      font-size: 1.5rem;
+    }
+
+    .case-story p {
+      margin: 0;
+      line-height: 1.78;
+    }
+
+    .case-story-list {
+      display: grid;
+      gap: 12px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .case-story-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      line-height: 1.65;
+    }
+
+    .case-story-mark {
+      width: 26px;
+      height: 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      background: rgba(78, 161, 255, 0.18);
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .case-study-side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .case-study-quote {
+      padding: 24px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .case-study-quote strong {
+      display: block;
+      font-size: 1.12rem;
+      margin-bottom: 10px;
+    }
+
+    .case-study-quote p {
+      margin: 0;
+      line-height: 1.72;
+    }
+
+    .case-study-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .case-study-metric {
+      padding: 20px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .case-study-metric strong {
+      display: block;
+      margin-bottom: 8px;
+      font-family: "Sora", sans-serif;
+      font-size: 2rem;
+      line-height: 1;
+      color: #fff;
+    }
+
+    .case-study-metric span {
+      color: rgba(255,255,255,0.74);
+      line-height: 1.6;
+      font-size: 0.92rem;
+    }
+
+    .pricing-shell {
+      position: relative;
+      padding: 10px 0 0;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      padding: 26px;
+      background: rgba(255,255,255,0.95);
+      border-color: rgba(148, 163, 184, 0.16);
+      box-shadow: 0 18px 46px rgba(15, 23, 42, 0.05);
+    }
+
+    .pricing-card.featured {
+      position: relative;
+      background: linear-gradient(180deg, #0d1b2a 0%, #123157 100%);
+      border-color: rgba(78, 161, 255, 0.18);
+      color: #fff;
+      transform: translateY(-8px);
+      box-shadow: 0 24px 64px rgba(9, 20, 37, 0.18);
+    }
+
+    .pricing-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(8, 109, 255, 0.08);
+      border: 1px solid rgba(8, 109, 255, 0.1);
+      color: var(--brand);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .pricing-name {
+      margin: 18px 0 8px;
+      font-size: 1.32rem;
+    }
+
+    .pricing-price {
+      margin: 0 0 10px;
+      font-size: 2.2rem;
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .pricing-price small {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      color: inherit;
+      opacity: 0.74;
+    }
+
+    .pricing-meta {
+      min-height: 46px;
+      margin-bottom: 18px;
+      line-height: 1.65;
+      font-size: 0.94rem;
+    }
+
+    .pricing-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .pricing-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
+    .pricing-list li::before {
+      content: "•";
+      color: var(--brand);
+      font-size: 1.2rem;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .pricing-card.featured .pricing-list li::before {
+      color: #8fd1ff;
+    }
+
+    .pricing-note {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.94rem;
+      line-height: 1.7;
+    }
+
     .cta-wrap {
       padding-bottom: 74px;
     }
@@ -1309,6 +1599,7 @@
       .visual-stack,
       .showcase-grid,
       .comparison-grid,
+      .case-study-grid,
       .deployment-grid,
       .cta-panel,
       .feature-grid,
@@ -1319,6 +1610,10 @@
 
       .stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
       }
 
       .hero-meta {
@@ -1347,6 +1642,14 @@
 
       .logo-cloud-label {
         max-width: none;
+      }
+
+      .case-study-shell {
+        padding: 28px;
+      }
+
+      .case-study-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .nav-inner {
@@ -1391,6 +1694,7 @@
       .nav-inner,
       .hero-visual,
       .showcase-panel,
+      .case-study-shell,
       .cta-panel,
       .contact-card,
       .deployment-card,
@@ -1465,6 +1769,20 @@
       .visual-media-card,
       .showcase-image {
         min-height: 300px;
+      }
+
+      .case-story,
+      .case-study-quote,
+      .pricing-card {
+        padding: 20px;
+      }
+
+      .case-study-metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-card.featured {
+        transform: none;
       }
 
       .showcase-float {
@@ -1969,6 +2287,112 @@
             </ol>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="case-study-wrap">
+      <div class="shell case-study-shell">
+        <div class="case-study-head">
+          <span class="eyebrow">Case study mô phỏng</span>
+          <h2 class="section-title">Một khu sạc 48 vị trí có thể chuyển từ vận hành bị động sang kiểm soát rõ ràng chỉ sau giai đoạn chạy thử</h2>
+          <p class="section-lead">
+            Đây không phải lời hứa mơ hồ. Đây là kiểu kịch bản mà ban quản lý thường muốn nhìn thấy trước khi quyết định cho phép chạy pilot tại bãi xe hoặc tầng hầm.
+          </p>
+        </div>
+
+        <div class="case-study-grid">
+          <div class="case-story">
+            <h3>Bối cảnh thường gặp ở chung cư và bãi xe có khu sạc</h3>
+            <p>
+              Ban đầu, đội vận hành chỉ muốn giải quyết một vấn đề nhỏ: làm sao theo dõi khu sạc mà không phải nhìn camera rời rạc,
+              không phải chờ báo miệng từ ca trực và không phải xử lý sự cố khi mọi thứ đã đi quá xa.
+            </p>
+
+            <ul class="case-story-list">
+              <li><span class="case-story-mark">1</span><span>Chạy thử trên một cụm camera và một nhóm socket đang có mật độ sử dụng cao.</span></li>
+              <li><span class="case-story-mark">2</span><span>Gom xe ra vào, phiên sạc và cảnh báo bất thường về cùng một giao diện để đo hiệu quả phản ứng.</span></li>
+              <li><span class="case-story-mark">3</span><span>Dùng kết quả pilot để trình bày với ban quản lý hoặc chủ đầu tư trước khi mở rộng thêm khu vực.</span></li>
+            </ul>
+          </div>
+
+          <div class="case-study-side">
+            <div class="case-study-quote">
+              <strong>“Điều quan trọng nhất không phải là có thêm một phần mềm, mà là ca trực biết phải nhìn vào đâu và xử lý việc gì trước.”</strong>
+              <p>Một bản demo tốt cần giúp khách hàng hình dung được sự thay đổi trong vận hành, chứ không chỉ thấy danh sách tính năng.</p>
+            </div>
+
+            <div class="case-study-metrics">
+              <div class="case-study-metric">
+                <strong>01</strong>
+                <span>Màn hình chung để giám sát xe, khu sạc và cảnh báo.</span>
+              </div>
+              <div class="case-study-metric">
+                <strong>02</strong>
+                <span>Nhóm sử dụng chính: bảo vệ và kỹ thuật cùng nhìn chung dữ liệu.</span>
+              </div>
+              <div class="case-study-metric">
+                <strong>07 ngày</strong>
+                <span>Mốc hợp lý để đánh giá hiệu quả pilot trước khi mở rộng.</span>
+              </div>
+              <div class="case-study-metric">
+                <strong>48 vị trí</strong>
+                <span>Mức quy mô mô phỏng đủ sát với các khu sạc vận hành thực tế.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell pricing-shell">
+        <div class="section-head pricing-head">
+          <span class="eyebrow">Lộ trình làm việc</span>
+          <h2 class="section-title">Ba cách bắt đầu để khách hàng đi từ xem demo đến quyết định chạy thật</h2>
+          <p class="section-lead">
+            Không phải dự án nào cũng cần vào ngay full scope. Cách thuyết phục hơn là chọn một mức khởi động phù hợp với hiện trạng và tốc độ ra quyết định của từng khách hàng.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <span class="pricing-badge">Bước 1</span>
+            <h3 class="pricing-name">Khảo sát nhanh</h3>
+            <p class="pricing-price">01 buổi <small>làm rõ hiện trạng</small></p>
+            <p class="pricing-meta">Phù hợp khi khách cần chốt xem giải pháp có đúng bài toán của bãi xe và khu sạc hiện tại hay không.</p>
+            <ul class="pricing-list">
+              <li>Đọc nhanh mặt bằng, camera, luồng xe và khu vực sạc.</li>
+              <li>Xác định điểm demo nào cần dựng trước để thuyết phục ban quản lý.</li>
+              <li>Đưa ra đề xuất phạm vi chạy thử phù hợp.</li>
+            </ul>
+          </article>
+
+          <article class="pricing-card featured">
+            <span class="pricing-badge">Khuyến nghị</span>
+            <h3 class="pricing-name">Demo thực địa</h3>
+            <p class="pricing-price">01 kịch bản demo <small>theo bối cảnh thật</small></p>
+            <p class="pricing-meta">Phù hợp khi khách cần một bản xem thử đủ sát để trình bày nội bộ và đưa ra quyết định chạy pilot.</p>
+            <ul class="pricing-list">
+              <li>Thiết kế luồng demo bám theo khu sạc, camera và hành vi vận hành thực tế.</li>
+              <li>Trình bày rõ trước, sau và giá trị khách hàng nhìn thấy ngay.</li>
+              <li>Tạo nền tảng để chốt phạm vi pilot nhanh hơn.</li>
+            </ul>
+          </article>
+
+          <article class="pricing-card">
+            <span class="pricing-badge">Bước 3</span>
+            <h3 class="pricing-name">Pilot vận hành</h3>
+            <p class="pricing-price">01 khu vực <small>chạy thử có đo hiệu quả</small></p>
+            <p class="pricing-meta">Phù hợp khi khách muốn nhìn hiệu quả thật trong 1 khu vực trước khi triển khai rộng ra nhiều camera hoặc nhiều cụm sạc.</p>
+            <ul class="pricing-list">
+              <li>Thiết lập pilot gọn, tập trung vào nơi có rủi ro và mật độ sử dụng cao.</li>
+              <li>Theo dõi phản ứng của đội trực và hiệu quả xử lý cảnh báo.</li>
+              <li>Dùng dữ liệu pilot để ra quyết định mở rộng rõ ràng hơn.</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="pricing-note">Mức đầu tư sẽ được đề xuất theo hiện trạng camera, phạm vi khu sạc và mục tiêu triển khai. Điểm chính của section này là giúp khách hàng hiểu cách bắt đầu, không phải ép họ vào một gói cứng.</p>
       </div>
     </section>
 
