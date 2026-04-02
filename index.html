@@ -286,8 +286,8 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-      gap: 34px;
+      grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+      gap: 42px;
       align-items: center;
     }
 
@@ -297,7 +297,7 @@
     }
 
     .hero-copy {
-      max-width: 620px;
+      max-width: 600px;
       text-align: left;
     }
 
@@ -362,7 +362,7 @@
     }
 
     .hero-lead {
-      max-width: 600px;
+      max-width: 34rem;
       margin: 0;
       font-size: 1.05rem;
     }
@@ -379,8 +379,8 @@
     .hero-meta {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 32px;
+      gap: 16px;
+      margin-top: 30px;
       text-align: left;
     }
 
@@ -478,13 +478,13 @@
 
     .hero-visual {
       position: relative;
-      padding: 18px;
+      padding: 20px;
       border-radius: 36px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(247,250,255,0.94));
+      background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(247,250,255,0.95));
       border: 1px solid rgba(148, 163, 184, 0.16);
       box-shadow: var(--shadow);
       overflow: hidden;
-      min-height: 660px;
+      min-height: 636px;
     }
 
     .hero-visual::before,
@@ -545,7 +545,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       color: var(--text);
     }
 
@@ -576,9 +576,15 @@
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 248px;
+      grid-template-columns: minmax(0, 1fr) 236px;
       gap: 18px;
-      align-items: start;
+      align-items: stretch;
+    }
+
+    .visual-stage {
+      position: relative;
+      min-height: 548px;
+      padding-bottom: 118px;
     }
 
     .visual-media-card,
@@ -606,9 +612,9 @@
 
     .visual-media-card {
       position: relative;
-      border-radius: 28px;
+      border-radius: 30px;
       overflow: hidden;
-      min-height: 480px;
+      min-height: 100%;
     }
 
     .visual-photo {
@@ -628,11 +634,12 @@
 
     .visual-media-copy {
       position: absolute;
-      left: 22px;
-      right: 22px;
-      bottom: 20px;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
       z-index: 1;
-      padding: 18px;
+      max-width: 430px;
+      padding: 20px;
       border-radius: 22px;
       background: rgba(10, 20, 34, 0.68);
       border: 1px solid rgba(255,255,255,0.12);
@@ -663,7 +670,7 @@
       display: grid;
       gap: 16px;
       padding-top: 0;
-      align-content: start;
+      align-content: stretch;
     }
 
     .board-card,
@@ -674,11 +681,39 @@
     }
 
     .board-card {
-      animation: floatY 5s ease-in-out infinite;
+      background: linear-gradient(180deg, #ffffff, #f5f9ff);
+    }
+
+    .board-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .board-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .board-status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(18, 185, 129, 0.12);
+      color: #0f766e;
+      font-size: 0.8rem;
+      font-weight: 700;
     }
 
     .board-title {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       margin-bottom: 14px;
     }
 
@@ -714,6 +749,95 @@
 
     .snapshot-card {
       background: linear-gradient(180deg, #ffffff, #f5f9ff);
+    }
+
+    .visual-overlay-card,
+    .event-feed {
+      border-radius: 24px;
+      padding: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .visual-overlay-card {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 18px;
+      z-index: 2;
+      display: grid;
+      gap: 14px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+    }
+
+    .visual-overlay-head {
+      display: grid;
+      gap: 8px;
+    }
+
+    .visual-overlay-head strong,
+    .event-feed-title {
+      display: block;
+      font-family: "Sora", sans-serif;
+      font-size: 1rem;
+      line-height: 1.45;
+      letter-spacing: -0.02em;
+    }
+
+    .visual-overlay-head span {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .visual-overlay-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .overlay-item {
+      padding: 14px;
+      border-radius: 18px;
+      background: var(--surface-soft);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .overlay-item strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--brand);
+      font-family: "Sora", sans-serif;
+      font-size: 0.98rem;
+    }
+
+    .overlay-item span {
+      color: var(--muted);
+      font-size: 0.87rem;
+      line-height: 1.55;
+    }
+
+    .event-feed {
+      background: linear-gradient(180deg, #0f1f34, #132a45);
+      color: #fff;
+    }
+
+    .event-feed .event-item {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      box-shadow: none;
+      padding: 13px 14px;
+    }
+
+    .event-feed .event-copy strong {
+      color: #fff;
+    }
+
+    .event-feed .event-copy span,
+    .event-feed .event-time {
+      color: rgba(255,255,255,0.72);
     }
 
     .snapshot-card strong {
@@ -1276,20 +1400,26 @@
     }
 
     .case-study-shell .section-title,
-    .case-study-shell .section-lead,
-    .pricing-shell .section-title,
-    .pricing-shell .section-lead {
+    .case-study-shell .section-lead {
       color: #fff;
     }
 
     .case-study-shell .section-lead,
-    .pricing-shell .section-lead,
     .case-story p,
     .case-study-quote p,
+    .case-story-list li {
+      color: rgba(255,255,255,0.74);
+    }
+
+    .pricing-shell .section-title {
+      color: var(--text);
+    }
+
+    .pricing-shell .section-lead,
     .pricing-note,
     .pricing-list li,
     .pricing-meta {
-      color: rgba(255,255,255,0.74);
+      color: var(--muted);
     }
 
     .case-study-grid {
@@ -1432,6 +1562,7 @@
       background: rgba(255,255,255,0.95);
       border-color: rgba(148, 163, 184, 0.16);
       box-shadow: 0 18px 46px rgba(15, 23, 42, 0.05);
+      color: var(--text);
     }
 
     .pricing-card.featured {
@@ -1570,17 +1701,41 @@
       font-size: 0.88rem;
     }
 
-    .faq-card {
-      position: relative;
+    .faq-accordion {
+      display: grid;
+      gap: 16px;
     }
 
-    .faq-card::before {
+    .faq-item {
+      border-radius: 26px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      box-shadow: 0 16px 42px rgba(15, 23, 42, 0.05);
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      position: relative;
+      list-style: none;
+      cursor: pointer;
+      padding: 24px 72px 24px 24px;
+      font-family: "Sora", sans-serif;
+      font-size: 1.08rem;
+      line-height: 1.45;
+      color: var(--text);
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::before {
       content: "Q";
       position: absolute;
-      top: 22px;
-      right: 22px;
-      width: 34px;
-      height: 34px;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
       display: grid;
       place-items: center;
       border-radius: 12px;
@@ -1588,6 +1743,48 @@
       color: var(--brand);
       font-size: 0.86rem;
       font-weight: 800;
+      transition: transform var(--transition), background var(--transition);
+    }
+
+    .faq-item summary::after {
+      content: "+";
+      position: absolute;
+      top: 26px;
+      right: 66px;
+      color: var(--brand);
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1;
+      transition: transform var(--transition);
+    }
+
+    .faq-item[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-item[open] summary::before {
+      background: rgba(8, 109, 255, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .faq-answer {
+      padding: 0 24px 24px;
+      color: var(--muted);
+      line-height: 1.78;
+      font-size: 0.97rem;
+    }
+
+    .faq-answer p {
+      margin: 0;
+    }
+
+    .faq-answer ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+    }
+
+    .faq-answer li + li {
+      margin-top: 8px;
     }
 
     .cta-wrap {
@@ -1723,8 +1920,26 @@
         min-height: auto;
       }
 
+      .visual-stage {
+        min-height: 0;
+        padding-bottom: 0;
+      }
+
+      .visual-overlay-card {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin: -60px 18px 0;
+      }
+
       .visual-side {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         padding-top: 0;
+      }
+
+      .event-feed {
+        grid-column: 1 / -1;
       }
 
       .logo-cloud {
@@ -1862,6 +2077,28 @@
         min-height: 300px;
       }
 
+      .visual-media-copy {
+        left: 18px;
+        right: 18px;
+        bottom: 18px;
+        max-width: none;
+      }
+
+      .visual-overlay-card {
+        margin: -42px 12px 0;
+        padding: 16px;
+      }
+
+      .visual-overlay-grid,
+      .visual-side {
+        grid-template-columns: 1fr;
+      }
+
+      .board-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       .showcase-panel {
         display: block;
       }
@@ -1954,7 +2191,7 @@
       </nav>
 
       <div class="nav-actions">
-        <a class="pill" id="topPhoneLink" href="mailto:contact@sacxemaydien.vn">Yêu cầu demo</a>
+        <a class="pill" id="topPhoneLink" href="mailto:contact@sacxemaydien.vn">Nhận tư vấn</a>
         <a class="btn btn-secondary" href="#modules">Xem giải pháp</a>
         <a class="btn btn-primary" id="topAppLink" href="#contact">Vào hệ thống</a>
         <button class="mobile-toggle" type="button" id="mobileToggle" aria-label="Mở menu">☰</button>
@@ -1987,13 +2224,13 @@
               <span class="hero-title-line">trên một màn hình duy nhất</span>
             </h1>
           <p class="hero-lead">
-            Dành cho ban quản lý và đơn vị vận hành muốn kiểm soát khu sạc rõ hơn, phát hiện rủi ro sớm hơn và xử lý nhanh hơn.
+              Dành cho ban quản lý và đơn vị vận hành muốn nhìn rõ khu sạc theo thời gian thực, phát hiện rủi ro sớm và phối hợp xử lý nhanh hơn.
           </p>
 
           <div class="hero-actions">
             <a class="btn btn-primary" id="heroAppLink" href="#contact">Vào hệ thống</a>
             <a class="btn btn-secondary" href="#deployment">Xem cách triển khai</a>
-            <a class="btn btn-ghost" id="heroPhoneLink" href="mailto:contact@sacxemaydien.vn">Yêu cầu demo</a>
+            <a class="btn btn-ghost" id="heroPhoneLink" href="mailto:contact@sacxemaydien.vn">Nhận tư vấn</a>
           </div>
 
           <div class="hero-proof">
@@ -2015,8 +2252,8 @@
               <span class="metric-label">Đội trực nắm sự cố sớm hơn và phản ứng nhanh hơn.</span>
             </div>
             <div class="metric">
-              <span class="metric-value">Dễ triển khai</span>
-              <span class="metric-label">Bắt đầu từ một khu vực trước rồi mở rộng khi cần.</span>
+              <span class="metric-value">Khởi động linh hoạt</span>
+              <span class="metric-label">Bắt đầu từ một khu vực trước rồi mở rộng theo nhu cầu thực tế.</span>
             </div>
           </div>
         </div>
@@ -2031,35 +2268,62 @@
           </div>
 
           <div class="visual-stack">
-            <div class="visual-media-card">
-              <img class="visual-photo" src="static/img/camera_mock.jpg" alt="Hình ảnh bãi xe được giám sát bằng camera">
-              <div class="visual-media-copy">
-                <span class="visual-kicker">Tổng quan hiện trường</span>
-                <strong>Theo dõi khu sạc, làn xe và camera bãi xe trong cùng một không gian vận hành</strong>
+            <div class="visual-stage">
+              <div class="visual-media-card">
+                <img class="visual-photo" src="static/img/camera_mock.jpg" alt="Hình ảnh bãi xe được giám sát bằng camera">
+                <div class="visual-media-copy">
+                  <span class="visual-kicker">Tổng quan hiện trường</span>
+                  <strong>Theo dõi khu sạc, làn xe và camera bãi xe trong cùng một không gian vận hành</strong>
+                </div>
+              </div>
+
+              <div class="visual-overlay-card">
+                <div class="visual-overlay-head">
+                  <strong>Ba lớp theo dõi trên cùng một màn hình</strong>
+                  <span>Ban quản lý nhìn là hiểu khu nào đang ổn, khu nào cần ưu tiên xử lý ngay.</span>
+                </div>
+                <div class="visual-overlay-grid">
+                  <div class="overlay-item">
+                    <strong>Xe ra vào</strong>
+                    <span>Nhận diện nhanh và đối chiếu biển số theo từng làn.</span>
+                  </div>
+                  <div class="overlay-item">
+                    <strong>Khu sạc</strong>
+                    <span>Theo dõi phiên sạc, tải điện và trạng thái từng cụm.</span>
+                  </div>
+                  <div class="overlay-item">
+                    <strong>Cảnh báo</strong>
+                    <span>Khói, quá tải hoặc bất thường được gom về một luồng rõ ràng.</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="visual-side">
               <div class="board-card">
-                <div class="board-title">Tổng quan ca trực hôm nay</div>
+                <div class="board-head">
+                  <span class="board-label">Ca trực hôm nay</span>
+                  <span class="board-status">Ổn định</span>
+                </div>
+                <div class="board-title">Tổng quan gọn, đủ để ra quyết định nhanh</div>
                 <div class="board-grid">
                   <div class="board-metric">
                     <strong>124</strong>
-                    <span>Phiên sạc hoàn tất trong ngày</span>
-                  </div>
-                  <div class="board-metric">
-                    <strong>26</strong>
-                    <span>Socket đang được giám sát</span>
+                    <span>Phiên sạc đã hoàn tất trong ngày</span>
                   </div>
                   <div class="board-metric">
                     <strong>08</strong>
-                    <span>Luồng camera đang được phân phối</span>
+                    <span>Luồng camera đang được giám sát</span>
+                  </div>
+                  <div class="board-metric">
+                    <strong>03</strong>
+                    <span>Cảnh báo ưu tiên đang cần theo dõi</span>
                   </div>
                 </div>
               </div>
 
               <div class="snapshot-card">
-                <strong>Điều khách hàng nhìn thấy ngay</strong>
+                <strong>Điều ban quản lý nhìn thấy ngay</strong>
                 <div class="snapshot-list">
                   <div class="snapshot-row"><span class="snapshot-dot"></span><span>Xe vào bãi được nhận diện và đối chiếu nhanh.</span></div>
                   <div class="snapshot-row"><span class="snapshot-dot"></span><span>Khu vực sạc có cảnh báo quá tải và bất thường.</span></div>
@@ -2067,40 +2331,35 @@
                 </div>
               </div>
 
-              <div class="story-card">
-                <div class="story-row">
-                  <strong>03</strong>
-                  <span class="story-badge">Ưu tiên cao</span>
-                </div>
-                <p>Sự kiện khói, quá tải dòng hoặc vi phạm khu vực sạc được gom lại thành các cảnh báo rõ ràng để ca trực phản ứng nhanh hơn.</p>
-              </div>
-
-              <div class="mini-stack">
-                <div class="event-item">
-                  <span class="event-dot dot-ok"></span>
-                  <div class="event-copy">
-                    <strong>Camera khu B ổn định</strong>
-                    <span>Luồng trực tiếp và OCR biển số đang hoạt động bình thường.</span>
+              <div class="event-feed">
+                <strong class="event-feed-title">Cảnh báo ưu tiên gần nhất</strong>
+                <div class="mini-stack">
+                  <div class="event-item">
+                    <span class="event-dot dot-ok"></span>
+                    <div class="event-copy">
+                      <strong>Camera khu B ổn định</strong>
+                      <span>Luồng trực tiếp và OCR biển số đang hoạt động bình thường.</span>
+                    </div>
+                    <span class="event-time">1 phút</span>
                   </div>
-                  <span class="event-time">1 phút</span>
-                </div>
 
-                <div class="event-item">
-                  <span class="event-dot dot-warn"></span>
-                  <div class="event-copy">
-                    <strong>Socket S3 vượt ngưỡng dòng</strong>
-                    <span>Tự động cắt tải và ghi log để bảo trì kiểm tra.</span>
+                  <div class="event-item">
+                    <span class="event-dot dot-warn"></span>
+                    <div class="event-copy">
+                      <strong>Socket S3 vượt ngưỡng dòng</strong>
+                      <span>Tự động cắt tải và ghi log để bộ phận kỹ thuật kiểm tra.</span>
+                    </div>
+                    <span class="event-time">4 phút</span>
                   </div>
-                  <span class="event-time">4 phút</span>
-                </div>
 
-                <div class="event-item">
-                  <span class="event-dot dot-danger"></span>
-                  <div class="event-copy">
-                    <strong>Hầm B2 phát hiện khói</strong>
-                    <span>Đã sinh cảnh báo, lưu ảnh và đẩy thông báo cho đội vận hành.</span>
+                  <div class="event-item">
+                    <span class="event-dot dot-danger"></span>
+                    <div class="event-copy">
+                      <strong>Hầm B2 phát hiện khói</strong>
+                      <span>Đã sinh cảnh báo, lưu ảnh và đẩy thông báo cho đội vận hành.</span>
+                    </div>
+                    <span class="event-time">7 phút</span>
                   </div>
-                  <span class="event-time">7 phút</span>
                 </div>
               </div>
             </div>
@@ -2147,12 +2406,12 @@
             <span>Từ xe lạ, xe chưa đăng ký gói sạc đến khói, lửa hoặc khu vực bất thường đều được cảnh báo kịp thời.</span>
           </article>
           <article class="stat-card">
-            <strong>Dễ demo cho khách</strong>
-            <span>Ban quản lý hoặc chủ đầu tư nhìn vào sẽ hiểu ngay hệ thống đang giải quyết bài toán gì và giá trị ở đâu.</span>
+            <strong>Dễ tạo đồng thuận</strong>
+            <span>Ban quản lý, kỹ thuật và chủ đầu tư nhìn vào sẽ hiểu ngay hệ thống đang giải quyết bài toán gì và giá trị ở đâu.</span>
           </article>
           <article class="stat-card">
             <strong>Dễ mở rộng</strong>
-            <span>Có thể bắt đầu từ một khu vực thí điểm trước, sau đó mở rộng ra toàn bộ bãi xe hoặc nhiều tòa nhà.</span>
+            <span>Có thể bắt đầu từ một khu vực trước, sau đó mở rộng ra toàn bộ bãi xe hoặc nhiều tòa nhà.</span>
           </article>
         </div>
       </div>
@@ -2165,8 +2424,8 @@
             <img src="static/img/camera_mock.jpg" alt="Minh họa bãi xe và khu vực cần giám sát an toàn">
           </div>
           <div class="showcase-float">
-            <strong>Điểm cộng khi demo cho khách</strong>
-            <div class="showcase-caption">Khách nhìn vào hình ảnh bãi xe thật sẽ dễ liên hệ ngay với tình huống của chung cư, tầng hầm hoặc khu sạc mình đang vận hành.</div>
+            <strong>Điểm khách nhận ra ngay</strong>
+            <div class="showcase-caption">Hình ảnh bãi xe thật giúp khách liên hệ ngay với tình huống của chung cư, tầng hầm hoặc khu sạc mình đang vận hành.</div>
           </div>
         </div>
 
@@ -2192,7 +2451,7 @@
             </li>
           </ul>
 
-          <div class="showcase-caption">Mục tiêu là khách mở lên và thấy ngay đây là giải pháp đủ rõ để demo, đủ thật để cân nhắc chạy thử.</div>
+          <div class="showcase-caption">Mở trang lên là thấy ngay giải pháp này bám đúng bãi xe và khu sạc họ đang quản lý.</div>
         </div>
       </div>
     </section>
@@ -2226,7 +2485,7 @@
             <ul class="comparison-list">
               <li><span class="comparison-bullet">+</span><span>Biển số, camera, phiên sạc và cảnh báo bất thường được nhìn theo cùng một ngữ cảnh vận hành.</span></li>
               <li><span class="comparison-bullet">+</span><span>Ca trực phản ứng nhanh hơn vì cảnh báo rõ khu vực, mức độ ưu tiên và lịch sử liên quan.</span></li>
-              <li><span class="comparison-bullet">+</span><span>Ban quản lý có câu chuyện rõ ràng hơn để demo cho chủ đầu tư hoặc mở rộng quy mô theo từng khu vực.</span></li>
+              <li><span class="comparison-bullet">+</span><span>Ban quản lý có cơ sở rõ hơn để đánh giá hiệu quả và quyết định mở rộng theo từng khu vực.</span></li>
             </ul>
           </article>
         </div>
@@ -2307,7 +2566,7 @@
             <ul class="model-list">
               <li><strong>Khảo sát hiện trạng:</strong> xem sơ đồ bãi xe, camera, làn xe và vị trí khu vực sạc.</li>
               <li><strong>Thiết lập ban đầu:</strong> cấu hình tài khoản, camera và các luồng cảnh báo theo nhu cầu.</li>
-              <li><strong>Chạy thử có kiểm soát:</strong> bắt đầu từ một khu vực hoặc một nhóm camera trước.</li>
+              <li><strong>Triển khai theo giai đoạn:</strong> bắt đầu từ một khu vực hoặc một nhóm camera trước.</li>
               <li><strong>Mở rộng theo thực tế:</strong> sau khi ổn định có thể triển khai ra toàn bộ bãi xe hoặc nhiều tòa nhà.</li>
             </ul>
           </div>
@@ -2318,7 +2577,7 @@
               <li><strong>Ban quản lý chung cư:</strong> cần giám sát xe ra vào, khu vực sạc và các cảnh báo an toàn.</li>
               <li><strong>Đơn vị vận hành bãi xe:</strong> cần giảm thao tác thủ công và xử lý sự cố nhanh hơn.</li>
               <li><strong>Chủ đầu tư trạm sạc:</strong> cần một nền tảng đủ rõ để vận hành và mở rộng.</li>
-              <li><strong>Dự án thí điểm:</strong> muốn chạy thử một khu vực trước khi triển khai diện rộng.</li>
+              <li><strong>Đơn vị muốn mở rộng từng bước:</strong> muốn bắt đầu từ một khu vực trước khi triển khai diện rộng.</li>
             </ol>
           </div>
         </div>
@@ -2328,10 +2587,10 @@
     <section class="case-study-wrap">
       <div class="shell case-study-shell">
         <div class="case-study-head">
-          <span class="eyebrow">Case study mô phỏng</span>
-          <h2 class="section-title">Một kịch bản pilot đủ rõ để khách hình dung hiệu quả trước khi quyết định</h2>
+          <span class="eyebrow">Tình huống tham khảo</span>
+          <h2 class="section-title">Một ví dụ triển khai đủ rõ để khách hình dung hiệu quả thực tế</h2>
           <p class="section-lead">
-            Đây là kiểu câu chuyện khách hàng muốn thấy trước khi đồng ý cho chạy thử tại bãi xe hoặc tầng hầm.
+            Đây là kiểu câu chuyện mà ban quản lý muốn nhìn thấy trước khi chọn khu vực phù hợp để bắt đầu triển khai.
           </p>
         </div>
 
@@ -2343,16 +2602,16 @@
             </p>
 
             <ul class="case-story-list">
-              <li><span class="case-story-mark">1</span><span>Chạy thử trên một cụm camera và một nhóm socket đang có mật độ sử dụng cao.</span></li>
-              <li><span class="case-story-mark">2</span><span>Gom xe ra vào, phiên sạc và cảnh báo bất thường về cùng một giao diện để đo hiệu quả phản ứng.</span></li>
-              <li><span class="case-story-mark">3</span><span>Dùng kết quả pilot để trình bày với ban quản lý hoặc chủ đầu tư trước khi mở rộng thêm khu vực.</span></li>
+              <li><span class="case-story-mark">1</span><span>Bắt đầu từ cụm camera và nhóm socket có mật độ sử dụng cao nhất.</span></li>
+              <li><span class="case-story-mark">2</span><span>Gom xe ra vào, phiên sạc và cảnh báo bất thường về cùng một giao diện để theo dõi rõ ràng hơn.</span></li>
+              <li><span class="case-story-mark">3</span><span>Dùng kết quả ban đầu để quyết định có nên mở rộng thêm khu vực hay không.</span></li>
             </ul>
           </div>
 
           <div class="case-study-side">
             <div class="case-study-quote">
               <strong>“Điều quan trọng nhất không phải là có thêm một phần mềm, mà là ca trực biết phải nhìn vào đâu và xử lý việc gì trước.”</strong>
-              <p>Một bản demo tốt phải cho khách thấy sự thay đổi trong vận hành, không chỉ là danh sách tính năng.</p>
+              <p>Một bản giới thiệu tốt phải cho khách thấy sự thay đổi trong vận hành, không chỉ là danh sách tính năng.</p>
             </div>
 
             <div class="case-study-metrics">
@@ -2366,11 +2625,11 @@
               </div>
               <div class="case-study-metric">
                 <strong>07 ngày</strong>
-                <span>Mốc hợp lý để đánh giá hiệu quả pilot trước khi mở rộng.</span>
+                <span>Mốc phù hợp để đánh giá hiệu quả ban đầu trước khi mở rộng.</span>
               </div>
               <div class="case-study-metric">
                 <strong>48 vị trí</strong>
-                <span>Mức quy mô mô phỏng đủ sát với các khu sạc vận hành thực tế.</span>
+                <span>Mức quy mô đủ sát với các khu sạc vận hành thực tế.</span>
               </div>
             </div>
           </div>
@@ -2382,9 +2641,9 @@
       <div class="shell pricing-shell">
         <div class="section-head pricing-head">
           <span class="eyebrow">Lộ trình làm việc</span>
-          <h2 class="section-title">Ba cách bắt đầu để đi từ xem demo đến quyết định chạy thật</h2>
+          <h2 class="section-title">Ba cách bắt đầu để lựa chọn mức triển khai phù hợp</h2>
           <p class="section-lead">
-            Không cần vào full scope ngay. Điều khách cần là một lộ trình khởi động hợp lý và dễ ra quyết định.
+            Không cần triển khai toàn bộ ngay từ đầu. Điều khách cần là một lộ trình phù hợp với hiện trạng và tốc độ vận hành của mình.
           </p>
         </div>
 
@@ -2393,40 +2652,40 @@
             <span class="pricing-badge">Bước 1</span>
             <h3 class="pricing-name">Khảo sát nhanh</h3>
             <p class="pricing-price">01 buổi <small>làm rõ hiện trạng</small></p>
-            <p class="pricing-meta">Phù hợp khi khách cần chốt xem giải pháp có đúng bài toán của bãi xe và khu sạc hiện tại hay không.</p>
+            <p class="pricing-meta">Phù hợp khi cần đánh giá nhanh giải pháp có phù hợp với bãi xe, camera và khu sạc hiện tại hay không.</p>
             <ul class="pricing-list">
               <li>Đọc nhanh mặt bằng, camera, luồng xe và khu vực sạc.</li>
-              <li>Xác định điểm demo nào cần dựng trước để thuyết phục ban quản lý.</li>
-              <li>Đưa ra đề xuất phạm vi chạy thử phù hợp.</li>
+              <li>Xác định khu vực ưu tiên cần theo dõi trước.</li>
+              <li>Đề xuất phạm vi triển khai ban đầu phù hợp.</li>
             </ul>
           </article>
 
           <article class="pricing-card featured">
             <span class="pricing-badge">Khuyến nghị</span>
-            <h3 class="pricing-name">Demo thực địa</h3>
-            <p class="pricing-price">01 kịch bản demo <small>theo bối cảnh thật</small></p>
-            <p class="pricing-meta">Phù hợp khi khách cần một bản xem thử đủ sát để trình bày nội bộ và đưa ra quyết định chạy pilot.</p>
+            <h3 class="pricing-name">Bản mô phỏng theo thực tế</h3>
+            <p class="pricing-price">01 bản mô phỏng <small>theo đúng bối cảnh</small></p>
+            <p class="pricing-meta">Phù hợp khi cần một bản hình dung đủ sát để các bên liên quan cùng đánh giá mức độ phù hợp của giải pháp.</p>
             <ul class="pricing-list">
-              <li>Thiết kế luồng demo bám theo khu sạc, camera và hành vi vận hành thực tế.</li>
-              <li>Trình bày rõ trước, sau và giá trị khách hàng nhìn thấy ngay.</li>
-              <li>Tạo nền tảng để chốt phạm vi pilot nhanh hơn.</li>
+              <li>Thiết kế luồng mô phỏng bám theo khu sạc, camera và hành vi vận hành thực tế.</li>
+              <li>Thể hiện rõ khác biệt trước và sau khi có hệ thống.</li>
+              <li>Giúp khách hình dung cách giải pháp đi vào vận hành thực tế.</li>
             </ul>
           </article>
 
           <article class="pricing-card">
             <span class="pricing-badge">Bước 3</span>
-            <h3 class="pricing-name">Pilot vận hành</h3>
-            <p class="pricing-price">01 khu vực <small>chạy thử có đo hiệu quả</small></p>
-            <p class="pricing-meta">Phù hợp khi khách muốn nhìn hiệu quả thật trong 1 khu vực trước khi triển khai rộng ra nhiều camera hoặc nhiều cụm sạc.</p>
+            <h3 class="pricing-name">Triển khai từng khu vực</h3>
+            <p class="pricing-price">01 khu vực <small>bắt đầu vận hành</small></p>
+            <p class="pricing-meta">Phù hợp khi muốn triển khai từ một khu vực trước, theo dõi hiệu quả rồi mở rộng dần theo nhu cầu thực tế.</p>
             <ul class="pricing-list">
-              <li>Thiết lập pilot gọn, tập trung vào nơi có rủi ro và mật độ sử dụng cao.</li>
+              <li>Thiết lập gọn tại nơi có rủi ro và mật độ sử dụng cao.</li>
               <li>Theo dõi phản ứng của đội trực và hiệu quả xử lý cảnh báo.</li>
-              <li>Dùng dữ liệu pilot để ra quyết định mở rộng rõ ràng hơn.</li>
+              <li>Dùng dữ liệu thực tế để mở rộng chắc chắn hơn.</li>
             </ul>
           </article>
         </div>
 
-        <p class="pricing-note">Mục tiêu của phần này là giúp khách hiểu cách bắt đầu, không phải ép họ vào một gói cứng.</p>
+        <p class="pricing-note">Lộ trình này giúp khách chọn cách bắt đầu phù hợp, từ xem hiện trạng đến vận hành thực tế theo từng giai đoạn.</p>
       </div>
     </section>
 
@@ -2434,9 +2693,9 @@
       <div class="shell">
         <div class="section-head">
           <span class="eyebrow">Niềm tin từ góc nhìn vận hành</span>
-          <h2 class="section-title">Điều khách muốn nghe là cảm giác vận hành sẽ bớt bị động hơn</h2>
+          <h2 class="section-title">Điều khách muốn nghe là cảm giác vận hành sẽ chủ động và an tâm hơn</h2>
           <p class="section-lead">
-            Đây là kiểu phản hồi mà ban quản lý và đội vận hành thường quan tâm khi cân nhắc chạy demo hoặc pilot.
+            Đây là kiểu phản hồi mà ban quản lý và đội vận hành thường quan tâm khi đánh giá một giải pháp cho khu sạc.
           </p>
         </div>
 
@@ -2457,9 +2716,9 @@
 
           <article class="testimonial-card">
             <div class="testimonial-mark">“</div>
-            <p>Nếu demo được đúng bối cảnh bãi xe của mình thì rất dễ trình bày với chủ đầu tư. Lúc đó câu chuyện không còn là mua phần mềm, mà là giảm rủi ro vận hành.</p>
-            <strong>Đơn vị triển khai dự án</strong>
-            <span class="testimonial-role">Kịch bản pilot trước khi mở rộng toàn khu</span>
+            <p>Khi nhìn đúng bối cảnh bãi xe của mình, ban quản lý sẽ thấy rõ giá trị vận hành hơn. Lúc đó câu chuyện không còn là mua phần mềm, mà là giảm rủi ro và tăng sự chủ động.</p>
+            <strong>Ban vận hành khu sạc</strong>
+            <span class="testimonial-role">Lộ trình bắt đầu từ một khu vực rồi mở rộng toàn khu</span>
           </article>
         </div>
       </div>
@@ -2469,28 +2728,66 @@
       <div class="shell">
         <div class="section-head">
           <span class="eyebrow">Câu hỏi thường gặp</span>
-          <h2 class="section-title">Những câu hỏi khách thường hỏi trước khi chốt demo</h2>
+          <h2 class="section-title">Những câu hỏi khách thường hỏi trước khi chọn giải pháp</h2>
           <p class="section-lead">
-            Phần này giúp gỡ bớt băn khoăn để khách dễ đi tới bước trao đổi hoặc chạy thử hơn.
+            Đây là những điều khách hàng thường muốn làm rõ trước khi quyết định bắt đầu từ khảo sát, bản mô phỏng hay triển khai theo từng giai đoạn.
           </p>
         </div>
 
-        <div class="faq-grid">
-          <article class="faq-card">
-            <h3>Có bắt buộc phải triển khai toàn bộ bãi xe ngay từ đầu không?</h3>
-            <p>Không. Cách hợp lý hơn là chọn một khu vực có mật độ sử dụng cao hoặc rủi ro cao để chạy thử trước, sau đó đo hiệu quả rồi mới mở rộng.</p>
-          </article>
+        <div class="faq-accordion">
+          <details class="faq-item" open>
+            <summary>Có bắt buộc phải triển khai toàn bộ bãi xe ngay từ đầu không?</summary>
+            <div class="faq-answer">
+              <p>Không cần. Cách phù hợp hơn là chọn một khu vực có mật độ sử dụng cao hoặc mức độ quan trọng lớn để bắt đầu trước. Sau khi vận hành ổn định, có thể mở rộng dần sang các khu vực còn lại.</p>
+            </div>
+          </details>
 
-          <article class="faq-card">
-            <h3>Giải pháp này phù hợp với ai nhất?</h3>
-            <p>Phù hợp với ban quản lý chung cư, đơn vị vận hành bãi xe, chủ đầu tư trạm sạc hoặc dự án muốn kiểm soát khu sạc xe điện rõ ràng hơn.</p>
-          </article>
+          <details class="faq-item">
+            <summary>Giải pháp này phù hợp với mô hình khách hàng nào?</summary>
+            <div class="faq-answer">
+              <p>Phù hợp với ban quản lý chung cư, đơn vị vận hành bãi xe, chủ đầu tư trạm sạc hoặc dự án muốn kiểm soát khu sạc xe điện rõ ràng hơn.</p>
+              <ul>
+                <li>Khu vực có nhiều xe điện cần quản lý ra vào và sử dụng ổ cắm.</li>
+                <li>Tầng hầm hoặc bãi xe cần cảnh báo sớm các tình huống bất thường.</li>
+                <li>Đơn vị muốn có một giao diện chung cho bảo vệ, kỹ thuật và quản lý.</li>
+              </ul>
+            </div>
+          </details>
 
-          <article class="faq-card">
-            <h3>Nếu khách chỉ muốn demo để trình bày nội bộ thì sao?</h3>
-            <p>Hoàn toàn phù hợp. Phần demo có thể được dựng theo đúng bối cảnh thực tế để hỗ trợ trình bày với ban quản lý hoặc chủ đầu tư trước khi vào pilot.</p>
-          </article>
+          <details class="faq-item">
+            <summary>Nếu hiện tại đã có camera rồi thì có tận dụng được không?</summary>
+            <div class="faq-answer">
+              <p>Trong nhiều trường hợp là có. Việc tận dụng hệ thống camera sẵn có sẽ được xem xét dựa trên vị trí lắp đặt, góc nhìn, chất lượng hình ảnh và phạm vi khu vực sạc cần theo dõi.</p>
+            </div>
+          </details>
 
+          <details class="faq-item">
+            <summary>Khách hàng sẽ nhìn thấy giá trị rõ nhất ở điểm nào?</summary>
+            <div class="faq-answer">
+              <p>Giá trị rõ nhất là khả năng nhìn tổng quan hơn và phản ứng nhanh hơn. Thay vì kiểm tra rời rạc, đội vận hành có thể theo dõi xe ra vào, khu sạc, camera và cảnh báo trong cùng một luồng thông tin.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Giải pháp có thể bắt đầu từ mức độ nào?</summary>
+            <div class="faq-answer">
+              <p>Có thể bắt đầu từ khảo sát hiện trạng, bản mô phỏng bám sát bối cảnh thật hoặc triển khai trước ở một khu vực nhỏ. Mục tiêu là chọn một mức khởi động vừa đủ để dễ đánh giá hiệu quả thực tế.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Mất bao lâu để có một bản hình dung đủ rõ cho ban quản lý?</summary>
+            <div class="faq-answer">
+              <p>Tùy quy mô mặt bằng và phạm vi cần thể hiện, nhưng hoàn toàn có thể bắt đầu từ một bản mô phỏng tập trung vào đúng vấn đề khách đang quan tâm nhất: khu sạc, camera, cảnh báo và luồng xe ra vào.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Khi nào nên mở rộng sang nhiều khu vực hơn?</summary>
+            <div class="faq-answer">
+              <p>Khi khu vực đầu tiên đã cho thấy hiệu quả vận hành rõ ràng, đội trực quen với quy trình mới và ban quản lý muốn áp dụng cùng cách kiểm soát đó cho nhiều khu vực hơn.</p>
+            </div>
+          </details>
         </div>
       </div>
     </section>
@@ -2499,15 +2796,15 @@
       <div class="shell">
         <div class="cta-panel">
           <div class="cta-copy">
-            <span class="eyebrow">Đăng ký demo</span>
-            <h2 class="cta-title">Muốn xem một bản demo đủ sát để khách của anh nhìn vào là hiểu ngay giá trị?</h2>
+            <span class="eyebrow">Nhận tư vấn</span>
+            <h2 class="cta-title">Muốn xem một bản giới thiệu đủ sát để ban quản lý nhìn vào là hiểu ngay giá trị?</h2>
             <p>
-              Có thể bắt đầu từ đúng hiện trạng đang có, dựng demo đủ sát để nhìn thấy giá trị thật rồi mới quyết định phạm vi chạy thử.
+              Có thể bắt đầu từ đúng hiện trạng đang có, dựng bản giới thiệu đủ sát để nhìn thấy giá trị thật rồi mới chọn cách triển khai phù hợp.
             </p>
             <div class="cta-points">
               <span class="cta-point">Trải nghiệm theo bối cảnh thực tế</span>
-              <span class="cta-point">Dễ trình bày cho ban quản lý</span>
-              <span class="cta-point">Có thể triển khai thử từng khu vực</span>
+              <span class="cta-point">Dễ trao đổi với ban quản lý</span>
+              <span class="cta-point">Có thể triển khai theo từng khu vực</span>
             </div>
           </div>
 
@@ -2530,8 +2827,8 @@
 
               <a class="contact-link" id="contactPhoneLink" href="mailto:contact@sacxemaydien.vn">
                 <span>
-                  <strong>Đăng ký tư vấn demo</strong>
-                  <span>Trao đổi nhanh về mô hình triển khai phù hợp với tòa nhà hoặc bãi xe của anh</span>
+                  <strong>Đăng ký tư vấn</strong>
+                  <span>Nhận gợi ý cách bắt đầu phù hợp với tòa nhà, bãi xe hoặc khu sạc đang vận hành</span>
                 </span>
                 <span class="contact-arrow">→</span>
               </a>
@@ -2539,7 +2836,7 @@
               <a class="contact-link" id="contactZaloLink" href="https://zalo.me/" target="_blank" rel="noopener noreferrer">
                 <span>
                   <strong>Zalo tư vấn</strong>
-                  <span>Nhắn nhanh để nhận lịch demo, tư vấn hoặc báo giá</span>
+                  <span>Nhắn nhanh để nhận tư vấn, bản giới thiệu hoặc báo giá</span>
                 </span>
                 <span class="contact-arrow">→</span>
               </a>
@@ -2567,14 +2864,14 @@
 
   <div class="floating-actions">
     <a class="floating-btn zalo" id="floatingZaloLink" href="https://zalo.me/" target="_blank" rel="noopener noreferrer" aria-label="Liên hệ Zalo">Z</a>
-    <a class="floating-btn phone" id="floatingPhoneLink" href="mailto:contact@sacxemaydien.vn" aria-label="Yêu cầu demo">☎</a>
+    <a class="floating-btn phone" id="floatingPhoneLink" href="mailto:contact@sacxemaydien.vn" aria-label="Nhận tư vấn">☎</a>
   </div>
 
   <script>
     (function () {
       var CONFIG = {
         appUrl: "https://app.sacxemaydien.vn",
-        phoneDisplay: "Yêu cầu demo",
+        phoneDisplay: "Nhận tư vấn",
         phoneHref: "mailto:contact@sacxemaydien.vn",
         zaloUrl: "https://zalo.me/",
         email: "contact@sacxemaydien.vn",
@@ -2589,17 +2886,25 @@
         }
       });
 
-      var phoneTargets = ["topPhoneLink", "heroPhoneLink", "contactPhoneLink", "floatingPhoneLink"];
-      phoneTargets.forEach(function (id) {
+      ["topPhoneLink", "heroPhoneLink"].forEach(function (id) {
         var el = document.getElementById(id);
         if (!el) {
           return;
         }
         el.href = CONFIG.phoneHref;
-        if (id !== "floatingPhoneLink") {
-          el.textContent = CONFIG.phoneDisplay;
-        }
+        el.textContent = CONFIG.phoneDisplay;
       });
+
+      var contactPhoneLink = document.getElementById("contactPhoneLink");
+      if (contactPhoneLink) {
+        contactPhoneLink.href = CONFIG.phoneHref;
+      }
+
+      var floatingPhoneLink = document.getElementById("floatingPhoneLink");
+      if (floatingPhoneLink) {
+        floatingPhoneLink.href = CONFIG.phoneHref;
+        floatingPhoneLink.setAttribute("aria-label", CONFIG.phoneDisplay);
+      }
 
       var zaloTargets = ["contactZaloLink", "floatingZaloLink"];
       zaloTargets.forEach(function (id) {
@@ -2636,7 +2941,7 @@
 
       var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var revealTargets = Array.prototype.slice.call(document.querySelectorAll(
-        '.hero-copy, .hero-visual, .logo-cloud, .section-head, .stat-card, .showcase-panel, .showcase-copy, .comparison-card, .feature-card, .workflow-card, .deployment-card, .steps-card, .cta-panel'
+        '.hero-copy, .hero-visual, .logo-cloud, .section-head, .stat-card, .showcase-panel, .showcase-copy, .comparison-card, .feature-card, .deployment-card, .steps-card, .pricing-card, .testimonial-card, .faq-item, .cta-panel'
       ));
 
       revealTargets.forEach(function (node, index) {
