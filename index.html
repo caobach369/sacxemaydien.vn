@@ -286,8 +286,8 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
-      gap: 42px;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 34px;
       align-items: center;
     }
 
@@ -297,7 +297,7 @@
     }
 
     .hero-copy {
-      max-width: 600px;
+      max-width: 680px;
       text-align: left;
     }
 
@@ -336,10 +336,10 @@
     }
 
     .hero-title {
-      font-size: clamp(3.05rem, 5vw, 5rem);
-      max-width: 10.4ch;
+      font-size: clamp(3.1rem, 4.45vw, 5rem);
+      max-width: 12.2ch;
       margin-right: 0;
-      line-height: 0.96;
+      line-height: 0.93;
     }
 
     .hero-title-accent {
@@ -362,7 +362,7 @@
     }
 
     .hero-lead {
-      max-width: 34rem;
+      max-width: 38rem;
       margin: 0;
       font-size: 1.05rem;
     }
@@ -379,7 +379,7 @@
     .hero-meta {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
+      gap: 14px;
       margin-top: 30px;
       text-align: left;
     }
@@ -478,13 +478,13 @@
 
     .hero-visual {
       position: relative;
-      padding: 20px;
+      padding: 18px;
       border-radius: 36px;
       background: linear-gradient(180deg, rgba(255,255,255,0.97), rgba(247,250,255,0.95));
       border: 1px solid rgba(148, 163, 184, 0.16);
       box-shadow: var(--shadow);
       overflow: hidden;
-      min-height: 636px;
+      min-height: 0;
     }
 
     .hero-visual::before,
@@ -545,7 +545,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       color: var(--text);
     }
 
@@ -576,15 +576,15 @@
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 236px;
+      grid-template-columns: 1fr;
       gap: 18px;
       align-items: stretch;
     }
 
     .visual-stage {
       position: relative;
-      min-height: 548px;
-      padding-bottom: 118px;
+      min-height: 492px;
+      padding-bottom: 104px;
     }
 
     .visual-media-card,
@@ -638,7 +638,7 @@
       right: 24px;
       bottom: 24px;
       z-index: 1;
-      max-width: 430px;
+      max-width: 448px;
       padding: 20px;
       border-radius: 22px;
       background: rgba(10, 20, 34, 0.68);
@@ -666,8 +666,9 @@
       letter-spacing: -0.03em;
     }
 
-    .visual-side {
+    .visual-summary {
       display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.92fr) minmax(0, 1.1fr);
       gap: 16px;
       padding-top: 0;
       align-content: stretch;
@@ -719,7 +720,7 @@
 
     .board-grid {
       display: grid;
-      gap: 12px;
+      gap: 10px;
     }
 
     .board-metric {
@@ -732,7 +733,7 @@
     .board-metric strong {
       display: block;
       font-family: "Sora", sans-serif;
-      font-size: 1.6rem;
+      font-size: 1.45rem;
       margin-bottom: 4px;
       color: var(--brand);
     }
@@ -821,6 +822,11 @@
     .event-feed {
       background: linear-gradient(180deg, #0f1f34, #132a45);
       color: #fff;
+      height: 100%;
+    }
+
+    .event-feed-title {
+      margin-bottom: 12px;
     }
 
     .event-feed .event-item {
@@ -1881,9 +1887,24 @@
     .floating-btn.zalo { background: linear-gradient(135deg, #0068ff, #12b0ff); }
     .floating-btn.phone { background: linear-gradient(135deg, #14b8a6, #12b981); }
 
+    @media (max-width: 1240px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .hero-copy {
+        max-width: none;
+      }
+
+      .hero-title {
+        max-width: 13ch;
+      }
+    }
+
     @media (max-width: 1080px) {
       .hero-grid,
-      .visual-stack,
+      .visual-summary,
       .showcase-grid,
       .comparison-grid,
       .case-study-grid,
@@ -1908,10 +1929,6 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-copy {
-        max-width: none;
-      }
-
       .hero-title {
         max-width: 12ch;
       }
@@ -1933,7 +1950,7 @@
         margin: -60px 18px 0;
       }
 
-      .visual-side {
+      .visual-summary {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         padding-top: 0;
       }
@@ -2090,7 +2107,7 @@
       }
 
       .visual-overlay-grid,
-      .visual-side {
+      .visual-summary {
         grid-template-columns: 1fr;
       }
 
@@ -2217,12 +2234,7 @@
             Nền tảng quản lý sạc xe điện và an ninh bãi xe thông minh
           </span>
 
-            <h1 class="hero-title">
-              <span class="hero-title-line">Quản lý</span>
-              <span class="hero-title-line"><span class="hero-title-accent">sạc xe máy điện</span>, xe ra vào</span>
-              <span class="hero-title-line">và cảnh báo an toàn</span>
-              <span class="hero-title-line">trên một màn hình duy nhất</span>
-            </h1>
+            <h1 class="hero-title">Quản lý <span class="hero-title-accent">sạc xe máy điện</span>, xe ra vào và cảnh báo an toàn trên một màn hình duy nhất</h1>
           <p class="hero-lead">
               Dành cho ban quản lý và đơn vị vận hành muốn nhìn rõ khu sạc theo thời gian thực, phát hiện rủi ro sớm và phối hợp xử lý nhanh hơn.
           </p>
@@ -2299,7 +2311,7 @@
               </div>
             </div>
 
-            <div class="visual-side">
+            <div class="visual-summary">
               <div class="board-card">
                 <div class="board-head">
                   <span class="board-label">Ca trực hôm nay</span>
